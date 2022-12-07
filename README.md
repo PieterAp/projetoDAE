@@ -1,22 +1,15 @@
 Entidades Projeto DAE:
 
-BD:
-
-Clients:
-
-Ocurrences:
+-- BD --
 
 Occurrence (occurrence_id, description)
 
-MockAPI:
+-- MockAPI --
 	
 Clients:
 
-Individual (individual_id, nif, name, email, address, phone)
+User (user_id (pk nn), nif (n), nipc (n), name (nn), email (nn), address (nn), phone (nn), organization_type (n))
 
-Organization (organization_id, nipc, name, email, address, phone, organization_type)
-
-	                             fk nif null     fk nipc null
-Policy (policy_id, policy_coverage, individual_id, organization_id, vehicle_id)
-
-Vehicle (vehicle_id, vehicle_type)
+InsuranceEntity (insurance_entity_id (pk nn), name (nn), email (nn), address (nn), phone (nn), share_capital (nn))
+           
+Policy (policy_id (pk nn), client_id (fk nn), insurance_entity_id (fk nn), policy_type (nn))
