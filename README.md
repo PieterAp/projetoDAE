@@ -4,11 +4,13 @@ Entidades Projeto DAE:
 
 Occurrence (occurrence_id, description)
 
+Repair(repair_id, occurence_id)
+
 -- MockAPI --
 	
 Clients:
 
-User (user_id (pk nn), nif (n), nipc (n), name (nn), email (nn), address (nn), phone (nn), organization_type (n))
+User (user_id (pk nn), name (nn), email (nn), address (nn), phone (nn), user_type (nn)) user_type individual or organization, user_id stores either nif or nipc
 
 InsuranceEntity (insurance_entity_id (pk nn), name (nn), email (nn), address (nn), phone (nn), share_capital (nn))
            
