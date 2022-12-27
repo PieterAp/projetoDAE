@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="projectDAE.war">
+    <root id="archive" name="projectDae.war">
       <element id="artifact" artifact-name="projectDAE:war exploded" />
     </root>
   </artifact>
