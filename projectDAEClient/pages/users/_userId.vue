@@ -1,20 +1,20 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="/">Academics</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="/users">Users</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+    <navbar>
+    </navbar>
     <b-container>
       <h4>User Details:</h4>
+      <b-img :src="user.avatar" fluid></b-img>
       <p>Name: {{ user.name }}</p>
       <p>Email: {{ user.email }}</p>
       <p>Address: {{ user.address }}</p>
       <p>Phone: {{ user.phone }}</p>
+      <h4>Policys:</h4>
+      <b-table v-if="policys.length" striped over :items="policys" :fields="policysFields">
+        <template v-slot:cell(options)="row">
+        </template>
+      </b-table>
+      <p v-else>No policys for this user.</p>
       <nuxt-link to="/users">Back</nuxt-link>
     </b-container>
   </div>
@@ -24,6 +24,8 @@ export default {
   data() {
     return {
       user: {},
+      policys: [],
+      policysFields: ['policy_type','description'],
     }
   },
   computed: {
@@ -32,8 +34,10 @@ export default {
     },
   },
   created() {
-    this.$axios.$get(`https://63aa2a6d7d7edb3ae621f6af.mockapi.io/users/${this.userId}`)
+    this.$axios.$get(`https://63aa2a6d7d7edb3ae621f6af.mockapi.io/api/users/${this.userId}`)
       .then(user => this.user = user || {})
+      .then(() => this.$axios.$get(`https://63aa2a6d7d7edb3ae621f6af.mockapi.io/api/users/${this.userId}/policys`))
+      .then(policys => this.policys = policys)
   },
 }
 </script>

@@ -1,15 +1,7 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="/">Academics</b-navbar-brand>
-      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
-      <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item href="/users">Users</b-nav-item>
-        </b-navbar-nav>
-      </b-collapse>
-    </b-navbar>
+    <navbar>
+    </navbar>
     <b-container>
       <div>
         <b-table striped over :items="users" :fields="fields">
@@ -35,7 +27,7 @@ export default {
     }
   },
   created() {
-    this.$axios.$get('https://63aa2a6d7d7edb3ae621f6af.mockapi.io/users/')
+    this.$axios.$get('https://63aa2a6d7d7edb3ae621f6af.mockapi.io/api/users/')
       .then((users) => {
         this.users = users
       })
