@@ -32,7 +32,8 @@ export default {
     // if you enabled axios module upon the app generation
     '@nuxtjs/axios',
     '@nuxtjs/toast',
-    '@nuxtjs/auth'],
+    '@nuxtjs/auth'
+  ],
   axios: {
     proxy: true,
     credentials: true
@@ -77,7 +78,7 @@ export default {
 
   router: {
     middleware: [
-      'auth'
+      //'auth'
     ]
   },
 
