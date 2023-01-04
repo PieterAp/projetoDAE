@@ -6,13 +6,13 @@ export default {
       lang: 'en'
     },
     meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: ''},
-      {name: 'format-detection', content: 'telephone=no'}
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: '' },
+      { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
@@ -30,7 +30,9 @@ export default {
     // if you choosed Bootstrap Vue...
     'bootstrap-vue/nuxt',
     // if you enabled axios module upon the app generation
-    '@nuxtjs/axios',],
+    '@nuxtjs/axios',
+    '@nuxtjs/toast',
+    '@nuxtjs/auth'],
   axios: {
     proxy: true,
     credentials: true
@@ -42,6 +44,41 @@ export default {
         '^/api/': ''
       }
     }
+  },
+
+  // Auth module configuration: https://auth.nuxtjs.org/
+  auth: {
+    redirect: {
+      login: '/auth/login',
+      logout: '/',
+      home: '/'
+    },
+    watchLoggedIn: true,
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/api/auth/login',
+            method: 'post',
+            propertyName: null
+          },
+          logout: false,
+          user: {
+            url: '/api/auth/user',
+            method: 'get',
+            propertyName: null
+          }
+        },
+        // tokenRequired: true, -> default
+        // tokenType: 'bearer' -> default
+      }
+    }
+  },
+
+  router: {
+    middleware: [
+      'auth'
+    ]
   },
 
 
