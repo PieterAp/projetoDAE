@@ -22,7 +22,7 @@
 export default {
   data() {
     return {
-      fields: ['user_id','name', 'email', 'actions'],
+      fields: ['name', 'email', 'address', 'phone', 'actions'],
       users: []
     }
   },
