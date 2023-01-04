@@ -49,7 +49,11 @@ methods: {
 
           // TODO redirect based on the user role
           // eg:
-          this.$router.push('/users')
+          if (this.$auth.user.groups.includes('Client')) {
+                this.$router.push('/students')
+            } else if (this.$auth.user.groups.includes('Student')) {
+                this.$router.push('/students/' + this.username)
+            }
          
       })
       promise.catch(() => {
