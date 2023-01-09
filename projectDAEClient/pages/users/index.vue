@@ -1,7 +1,5 @@
 <template>
   <div>
-    <navbar>
-    </navbar>
     <b-container>
       <div>
         <b-table striped over :items="users" :fields="fields">
@@ -9,6 +7,11 @@
             <nuxt-link
               class="btn btn-link"
               :to="`/users/${row.item.user_id}`">Details
+            </nuxt-link>
+            <nuxt-link
+              v-if="row.item.user_type=='Client'"
+              class="btn btn-link"
+              :to="`/occurrences/${row.item.user_id}/create`">Create occurrence
             </nuxt-link>
           </template>
         </b-table>
@@ -22,12 +25,12 @@
 export default {
   data() {
     return {
-      fields: ['name', 'email', 'address', 'phone', 'actions'],
+      fields: ['name', 'email', 'user_type', 'address', 'phone', 'actions'],
       users: []
     }
   },
   created() {
-    this.$axios.$get('https://63aa2a6d7d7edb3ae621f6af.mockapi.io/api/users/')
+    this.$axios.$get('/api/users/')
       .then((users) => {
         this.users = users
       })

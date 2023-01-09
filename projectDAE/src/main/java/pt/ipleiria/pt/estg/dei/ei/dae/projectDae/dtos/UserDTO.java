@@ -1,36 +1,10 @@
-package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
+package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@Entity
-@Table(name="users")
-@NamedQueries(
-        {
-            @NamedQuery(
-                    name = "getAllUsers",
-                    query = "SELECT u " +
-                            "FROM User u " +
-                            "ORDER BY u.user_id ASC"
-            ),
-            @NamedQuery(
-                    name = "findUserByNif",
-                    query = "SELECT u " +
-                            "FROM User u " +
-                            "WHERE u.nif = :userNif "
-            ),
-            @NamedQuery(
-                    name = "findInsuranceComp",
-                    query = "SELECT u " +
-                            "FROM User u " +
-                            "WHERE u.user_type like :insuranceComp "
-            )
-        }
-)
-public class User implements Serializable {
-
+public class UserDTO {
     @Id
-    //@GeneratedValue
     private long user_id;
 
     private String name;
@@ -41,10 +15,11 @@ public class User implements Serializable {
     private long nif;
     private long nipc;
 
-    public User() {
+    public UserDTO() {
+
     }
 
-    public User(long user_id, String name, String email, String address, long phone, String user_type, long nif, long nipc) {
+    public UserDTO(long user_id, String name, String email, String address, long phone, String user_type, long nif, long nipc) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
@@ -57,6 +32,10 @@ public class User implements Serializable {
 
     public long getUser_id() {
         return user_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {

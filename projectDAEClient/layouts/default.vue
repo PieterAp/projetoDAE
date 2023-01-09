@@ -10,6 +10,11 @@
                             Users
                         </nuxt-link>
                     </li>
+                    <li class="nav-item">
+                        <nuxt-link class="nav-link" to="/occurrences">
+                            Occurrences
+                        </nuxt-link>
+                    </li>
                 </b-navbar-nav>
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
