@@ -94,7 +94,7 @@ export default {
             .catch((error) => {
                 this.errorMsg = error.response.data
             })
-        },
+        }
     }
 }
 </script>

@@ -9,7 +9,8 @@
               <b-btn class="btn-danger" @click="disapproveOccurrence(row)">Disapprove</b-btn>
             </div>
             <div v-if="row.item.status=='Approved'">
-              <b-btn class="btn-information" @click="disapproveOccurrence(row)">Upload repair files</b-btn>
+              <b-btn class="btn-information" @click="uploadFile(row)">Upload repair files</b-btn>
+              <b-btn class="btn-success" @click="endRepair(row)">End repair</b-btn>
             </div>
           </template>
         </b-table>
@@ -38,15 +39,21 @@ export default {
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
                 status: "Approved"
       }).then(() => {
-                    this.$router.push('/occurrences')
+        location.reload();
       })
     },
-
     disapproveOccurrence(row){
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
                 status: "Disapproved"
       }).then(() => {
-                    this.$router.push('/occurrences')
+        location.reload();
+      })
+    },
+    endRepair(row){
+      this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
+                status: "Repaired"
+      }).then(() => {
+        location.reload();
       })
     }
   }
