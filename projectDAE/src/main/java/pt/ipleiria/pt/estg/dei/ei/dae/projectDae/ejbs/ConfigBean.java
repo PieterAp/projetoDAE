@@ -28,6 +28,8 @@ public class ConfigBean {
 
         userBean.create(23,"Mariana","mariana@mail.pt","Leiria", 962547452, "Client", 45215786,0);
         User client = userBean.findByNif(45215786);
+        userBean.create(35,"Margarida","margarida@mail.pt","Santarém", 985234568, "Client", 265417929,0);
+        userBean.create(29,"Joaquim","joaquim@mail.pt","Lisboa", 914257865, "Client", 1618198192,0);
 
         userBean.create(12,"Generali","Generali@seguros.pt","Leiria", 967452156, "Insurance",66325415,0);
         User insuranceCompany = userBean.findByNif(66325415);
