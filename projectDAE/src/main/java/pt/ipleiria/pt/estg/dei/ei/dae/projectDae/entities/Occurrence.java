@@ -29,6 +29,8 @@ public class Occurrence implements Serializable {
 
     private String description;
 
+    private String status;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "occurrence", cascade = CascadeType.REMOVE)
     List<Repair> repairs;
 
@@ -36,11 +38,12 @@ public class Occurrence implements Serializable {
         this.repairs = new ArrayList<>();
     }
 
-    public Occurrence(long client_id, long insurance_id, long policy_id, String description) {
+    public Occurrence(long client_id, long insurance_id, long policy_id, String description, String status) {
         this.client_id = client_id;
         this.insurance_id = insurance_id;
         this.policy_id = policy_id;
         this.description = description;
+        this.status = status;
     }
 
     public long getOccurrence_id() {
@@ -85,5 +88,13 @@ public class Occurrence implements Serializable {
 
     public void setPolicy_id(long policy_id) {
         this.policy_id = policy_id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

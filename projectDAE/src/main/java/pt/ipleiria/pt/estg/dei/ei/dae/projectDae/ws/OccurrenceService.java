@@ -30,7 +30,8 @@ public class OccurrenceService {
         Occurrence createdOccurrence = occurrenceBean.create(occurrenceDTO.getOccurrence_id(),
                                                             occurrenceDTO.getClient_id(),
                                                             occurrenceDTO.getPolicy_id(),
-                                                            occurrenceDTO.getDescription());
+                                                            occurrenceDTO.getDescription(),
+                                                            occurrenceDTO.getStatus());
 
         if (createdOccurrence == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -38,12 +39,25 @@ public class OccurrenceService {
         return Response.status(Response.Status.CREATED).entity(toDTO(createdOccurrence)).build();
     }
 
+    @PUT
+    @Path("/{occurrenceid}")
+    public Response updateCourse (@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
+        boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus());
+
+        if (!taskComplete) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
+        return Response.status(Response.Status.OK).build();
+    }
+
+
     private OccurrenceDTO toDTO(Occurrence occurrence) {
         return new OccurrenceDTO(
                 occurrence.getOccurrence_id(),
                 occurrence.getClient_id(),
                 occurrence.getPolicy_id(),
-                occurrence.getDescription()
+                occurrence.getDescription(),
+                occurrence.getStatus()
         );
     }
 

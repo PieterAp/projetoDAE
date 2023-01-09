@@ -34,7 +34,7 @@ public class ConfigBean {
 
         List<Policy> policies = policyBean.getPoliciesByUserId(client.getUser_id());
         if (policies.size()>0) {
-            occurrenceBean.create(client.getUser_id(), insuranceCompany.getUser_id(), policies.get(0).getId(), "Danos no carro");
+            occurrenceBean.create(client.getUser_id(), insuranceCompany.getUser_id(), policies.get(0).getId(), "Danos no carro","Submitted");
         }else{
             System.out.println("Could not create occurence, no policies found for created user");
         }

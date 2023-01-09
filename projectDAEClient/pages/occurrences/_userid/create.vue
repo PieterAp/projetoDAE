@@ -85,7 +85,8 @@ export default {
                 client_id: this.user.user_id,
                 insurance_id: this.insurance_id,
                 policy_id: this.policy_id,
-                description: this.description
+                description: this.description,
+                status: "Submitted"
             })
             .then(() => {
                 this.$router.push('/occurrences')
