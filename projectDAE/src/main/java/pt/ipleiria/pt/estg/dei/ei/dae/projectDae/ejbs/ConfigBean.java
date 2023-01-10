@@ -38,33 +38,37 @@ public class ConfigBean {
     public void populateDB() {
         System.out.println("Hello Java EE!");
 
-        /*
-        userBean.create(23,"Mariana","mariana@mail.pt","Leiria", 962547452, "Client", 45215786,0);
-        User client = userBean.findByNif(45215786);
-        userBean.create(35,"Margarida","margarida@mail.pt","Santarém", 985234568, "Client", 265417929,0);
-        userBean.create(29,"Joaquim","joaquim@mail.pt","Lisboa", 914257865, "Client", 1618198192,0);
+        //region users
+        clientBean.create(23,"Mariana","mariana@mail.pt","123",962547452,"Leiria",45215786,0);
+        User clientInd = userBean.findByNif(45215786);
+        clientBean.create(35,"Margarida","margarida@mail.pt","123",985234568,"Santarém",265417929,0);
+        clientBean.create(29,"Joaquim","joaquim@mail.pt","123",914257865,"Lisboa",0,1618198192);
+        User clientEmp = userBean.findByNipc(1618198192);
 
-        userBean.create(12,"Generali","Generali@seguros.pt","Leiria", 967452156, "Insurance",66325415,0);
-        User insuranceCompany = userBean.findByNif(66325415);
+        insuranceBean.create(1,"Generali","Generali@seguros.pt","123",967452156,"Lisboa",10000);
 
-        List<Policy> policies = policyBean.getPoliciesByUserId(client.getUser_id());
-        if (policies.size()>0) {
-            occurrenceBean.create(client.getUser_id(), insuranceCompany.getUser_id(), policies.get(0).getId(), "Danos no carro","Submitted");
+        expertBean.create( 2 ,"Expert - Leiria Auto","expert@mail.pt","123",985214526);
+
+        repairBean.create(3,"Repair","Repair@mail.pt","123",958536956);
+        //endregion
+
+        //region occurrences
+        //For individual client
+        List<Policy> policiesClientInd = policyBean.getPoliciesByUserId(clientInd.getUser_id());
+        if (policiesClientInd.size()>0) {
+            occurrenceBean.create(clientInd.getUser_id(), 1, policiesClientInd.get(0).getId(), "Danos no carro","Submitted");
         }else{
-            System.out.println("Could not create occurence, no policies found for created user");
+            System.out.println("Client " + clientInd.getUser_id() + " does not have policies");
         }
-        */
-        clientBean.create("client","client@mail.pt","123",912222222,"teste street",238273918,0);
-        clientBean.create("client E","client_E@mail.pt","123",912222222,"teste street",0,238273918);
 
-        insuranceBean.create("Insurance","Insurance@mail.pt","123",912222222,"teste street",10000);
-
-        expertBean.create("Expert","Expert@mail.pt","123",912222222);
-
-        repairBean.create("Repair","Repair@mail.pt","123",912222222);
-
+        //For enterprise client
+        List<Policy> policiesClientEmp = policyBean.getPoliciesByUserId(clientEmp.getUser_id());
+        if (policiesClientEmp.size()>0) {
+            occurrenceBean.create(clientEmp.getUser_id(), 1, policiesClientInd.get(0).getId(), "Incendio no armazem","Submitted");
+        }else{
+            System.out.println("Client " + clientEmp.getUser_id() + " does not have policies");
+        }
+        //endregion occurrences
     }
-
-
 }
 

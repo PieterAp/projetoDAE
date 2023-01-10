@@ -17,11 +17,13 @@ public class UserBean {
         return (List<User>) entityManager.createNamedQuery("getAllUsers").getResultList();
     }
 
+    /*
     public User create (long user_id ,String name, String email, String address, long phone, String user_type, long nif, long nipc) {
-        User user = new User(user_id,name, email, address, phone, user_type, nif, nipc);
+        User user = new User(user_id, name, email, address, phone, user_type, nif, nipc);
         entityManager.persist(user);
         return user;
     }
+    */
 
     public User find(long user_id) {
         return entityManager.find(User.class, user_id);
@@ -33,9 +35,17 @@ public class UserBean {
                                     .getSingleResult();
     }
 
+    public User findByNipc(long nipc) {
+        return (User) entityManager.createNamedQuery("findUserByNipc")
+                                    .setParameter("userNipc",nipc)
+                                    .getSingleResult();
+    }
+
+    /*
     public List<User> findAllInsuranceComp() {
         return (List<User>) entityManager.createNamedQuery("findInsuranceComp")
                 .setParameter("insuranceComp","Insurance")
                 .getResultList();
     }
+     */
 }

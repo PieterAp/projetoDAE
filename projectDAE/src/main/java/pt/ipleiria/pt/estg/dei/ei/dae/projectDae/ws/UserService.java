@@ -32,11 +32,13 @@ public class UserService {
         return toDTOs(userBean.getAllUsers());
     }
 
+    /*
     @GET
     @Path("/insuranceComp")
     public List<UserDTO> getAllInsuranceComps() {
         return toDTOs(userBean.findAllInsuranceComp());
     }
+    */
 
     @GET
     @Path("/{user_id}")
@@ -68,11 +70,8 @@ public class UserService {
                 user.getUser_id(),
                 user.getName(),
                 user.getEmail(),
-                user.getAddress(),
-                user.getPhone(),
-                user.getUser_type(),
-                user.getNif(),
-                user.getNipc()
+                user.getPassword(),
+                user.getPhone()
         );
     }
 

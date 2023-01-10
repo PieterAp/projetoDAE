@@ -1,20 +1,13 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 
-import com.sun.jndi.toolkit.url.Uri;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.PolicyDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 
 import javax.ejb.Stateless;
-import javax.json.Json;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.net.URI;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;

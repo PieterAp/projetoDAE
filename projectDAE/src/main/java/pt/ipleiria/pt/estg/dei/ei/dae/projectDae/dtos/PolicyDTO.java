@@ -3,15 +3,6 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos;
 import javax.persistence.Id;
 
 public class PolicyDTO {
-
-    /*
-            "createdAt": "2022-12-22T03:34:31.523Z",
-        "type": "type 1",
-        "user_id": 39,
-        "description": "description 1",
-        "id": "1"
-     */
-
     @Id
     private long id;
     private long user_id;

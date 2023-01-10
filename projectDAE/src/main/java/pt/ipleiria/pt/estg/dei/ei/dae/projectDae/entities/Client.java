@@ -13,8 +13,8 @@ public class Client extends  User implements Serializable {
     public Client() {
     }
 
-    public Client(String name, String email, String password, long phone, String address, long nif, long nipc) {
-        super(name, email, password, phone);
+    public Client(long user_id,String name, String email, String password, long phone, String address, long nif, long nipc) {
+        super(user_id, name, email, password, phone);
         this.address = address;
         this.nif = nif;
         this.nipc = nipc;
