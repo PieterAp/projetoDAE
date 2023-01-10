@@ -3,6 +3,7 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 
 import javax.ejb.Stateless;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;

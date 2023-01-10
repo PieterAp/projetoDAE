@@ -7,7 +7,7 @@ import java.io.Serializable;
 @Entity
 @Table(name="users",uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "userType")
+@DiscriminatorColumn(name = "user_type")
 @NamedQueries(
         {
             @NamedQuery(
@@ -93,5 +93,10 @@ public class User implements Serializable {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    @Transient
+    public String getUserType() {
+        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }
 }

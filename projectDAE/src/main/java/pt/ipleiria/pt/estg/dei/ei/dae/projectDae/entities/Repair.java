@@ -1,9 +1,11 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
+@DiscriminatorValue("Repair")
 public class Repair extends User implements Serializable  {
     public Repair() {
 

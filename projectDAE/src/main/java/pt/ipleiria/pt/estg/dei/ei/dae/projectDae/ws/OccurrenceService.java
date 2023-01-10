@@ -27,11 +27,12 @@ public class OccurrenceService {
     @POST
     @Path("/")
     public Response createCourse (OccurrenceDTO occurrenceDTO) {
-        Occurrence createdOccurrence = occurrenceBean.create(occurrenceDTO.getOccurrence_id(),
-                                                            occurrenceDTO.getClient_id(),
-                                                            occurrenceDTO.getPolicy_id(),
-                                                            occurrenceDTO.getDescription(),
-                                                            occurrenceDTO.getStatus());
+        Occurrence createdOccurrence = occurrenceBean.create(
+                occurrenceDTO.getOccurrence_id(),
+                occurrenceDTO.getClient_id(),
+                occurrenceDTO.getPolicy_id(),
+                occurrenceDTO.getDescription(),
+                occurrenceDTO.getStatus());
 
         if (createdOccurrence == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();

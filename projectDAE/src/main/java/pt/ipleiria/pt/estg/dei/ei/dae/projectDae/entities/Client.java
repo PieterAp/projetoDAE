@@ -1,9 +1,11 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
+@DiscriminatorValue("Client")
 public class Client extends  User implements Serializable {
 
     String address;

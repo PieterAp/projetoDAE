@@ -1,8 +1,11 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
 @Entity
+@DiscriminatorValue("Insurance")
 public class Insurance extends User implements Serializable {
 
     private String address;

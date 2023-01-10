@@ -52,9 +52,12 @@ public class ConfigBean {
         repairBean.create(3,"Repair","Repair@mail.pt","123",958536956);
         //endregion
 
+        /*
         //region occurrences
         //For individual client
+        System.out.println("I WANT POLICIES");
         List<Policy> policiesClientInd = policyBean.getPoliciesByUserId(clientInd.getUser_id());
+        System.out.println("I GOT POLICIES");
         if (policiesClientInd.size()>0) {
             occurrenceBean.create(clientInd.getUser_id(), 1, policiesClientInd.get(0).getId(), "Danos no carro","Submitted");
         }else{
@@ -69,6 +72,7 @@ public class ConfigBean {
             System.out.println("Client " + clientEmp.getUser_id() + " does not have policies");
         }
         //endregion occurrences
+        */
     }
 }
 

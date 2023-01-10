@@ -16,16 +16,19 @@ public class UserDTO {
     @NotNull
     private String password;
 
+    private String user_type;
+
     private long phone;
 
     public UserDTO() {
     }
 
-    public UserDTO(long user_id, String name, String email, String password, long phone) {
+    public UserDTO(long user_id, String name, String email, String password, String user_type,long phone) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.user_type = user_type;
         this.phone = phone;
     }
 
@@ -67,5 +70,13 @@ public class UserDTO {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 }
