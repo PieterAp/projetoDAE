@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="users")
+@Table(name="users",uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 @NamedQueries(
         {
             @NamedQuery(
@@ -27,32 +27,29 @@ import java.io.Serializable;
             )
         }
 )
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User implements Serializable {
 
     @Id
-    //@GeneratedValue
+    @GeneratedValue
     private long user_id;
-
+    @NotNull
     private String name;
+    @NotNull
     private String email;
-    private String address;
+    @NotNull
+    private String password;
+
     private long phone;
-    private String user_type;
-    private long nif;
-    private long nipc;
 
     public User() {
     }
 
-    public User(long user_id, String name, String email, String address, long phone, String user_type, long nif, long nipc) {
-        this.user_id = user_id;
+    public User(String name, String email, String password, long phone) {
         this.name = name;
         this.email = email;
-        this.address = address;
+        this.password = password;
         this.phone = phone;
-        this.user_type = user_type;
-        this.nif = nif;
-        this.nipc = nipc;
     }
 
     public long getUser_id() {
@@ -75,12 +72,12 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public long getPhone() {
@@ -89,29 +86,5 @@ public class User implements Serializable {
 
     public void setPhone(long phone) {
         this.phone = phone;
-    }
-
-    public String getUser_type() {
-        return user_type;
-    }
-
-    public void setUser_type(String user_type) {
-        this.user_type = user_type;
-    }
-
-    public long getNif() {
-        return nif;
-    }
-
-    public void setNif(long nif) {
-        this.nif = nif;
-    }
-
-    public long getNipc() {
-        return nipc;
-    }
-
-    public void setNipc(long nipc) {
-        this.nipc = nipc;
     }
 }

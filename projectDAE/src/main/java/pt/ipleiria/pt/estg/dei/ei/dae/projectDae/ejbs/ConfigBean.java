@@ -22,10 +22,23 @@ public class ConfigBean {
     @EJB
     PolicyBean policyBean;
 
+    @EJB
+    ClientBean clientBean;
+
+    @EJB
+    InsuranceBean insuranceBean;
+
+    @EJB
+    ExpertBean expertBean;
+    
+    @EJB
+    RepairBean repairBean;
+
     @PostConstruct
     public void populateDB() {
         System.out.println("Hello Java EE!");
 
+        /*
         userBean.create(23,"Mariana","mariana@mail.pt","Leiria", 962547452, "Client", 45215786,0);
         User client = userBean.findByNif(45215786);
         userBean.create(35,"Margarida","margarida@mail.pt","Santarém", 985234568, "Client", 265417929,0);
@@ -40,8 +53,18 @@ public class ConfigBean {
         }else{
             System.out.println("Could not create occurence, no policies found for created user");
         }
+        */
+        clientBean.create("client","client@mail.pt","123",912222222,"teste street",238273918,0);
+        clientBean.create("client E","client_E@mail.pt","123",912222222,"teste street",0,238273918);
 
+        insuranceBean.create("Insurance","Insurance@mail.pt","123",912222222,"teste street",10000);
+
+        expertBean.create("Expert","Expert@mail.pt","123",912222222);
+
+        repairBean.create("Repair","Repair@mail.pt","123",912222222);
 
     }
+
+
 }
 

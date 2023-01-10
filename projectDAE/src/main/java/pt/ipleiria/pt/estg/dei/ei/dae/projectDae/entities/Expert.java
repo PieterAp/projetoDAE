@@ -4,11 +4,13 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 
 @Entity
-public class Repair extends User implements Serializable  {
-    public Repair() {
+public class Expert extends User implements Serializable {
+
+    public Expert() {
     }
 
-    public Repair(String name, String email, String password, long phone) {
+    public Expert(String name, String email, String password, long phone) {
         super(name, email, password, phone);
     }
+
 }

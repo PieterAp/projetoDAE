@@ -35,7 +35,7 @@ public class Occurrence implements Serializable {
     List<Repair> repairs;
 
     public Occurrence() {
-        this.repairs = new ArrayList<>();
+
     }
 
     public Occurrence(long client_id, long insurance_id, long policy_id, String description, String status) {
