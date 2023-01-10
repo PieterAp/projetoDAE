@@ -20,7 +20,7 @@
                 </b-navbar-nav>
                 
                 <b-navbar-nav class="ml-auto">
-                    <li class="nav-item h6 red">
+                    <li class="nav-item h6">
                         <small>I am:</small> {{ user.name }} ({{ user.user_type }}), id: {{ user.user_id }}
                     </li>
                 </b-navbar-nav>

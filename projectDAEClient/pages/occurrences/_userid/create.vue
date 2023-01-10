@@ -80,9 +80,11 @@ export default {
         
     },
     methods: {
+        
+
         create() {
             this.$axios.$post('/api/occurrences/', {
-                client_id: this.user.user_id,
+                client_id: this.userid,
                 insurance_id: this.insurance_id,
                 policy_id: this.policy_id,
                 description: this.description,
