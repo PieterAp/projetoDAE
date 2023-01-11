@@ -1,22 +1,11 @@
-package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
+package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
-@Entity
-@Table(name="users",uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type")
-@NamedQueries(
-    @NamedQuery(
-        name = "getAllUsers",
-        query = "SELECT u " +
-                "FROM User u " +
-                "ORDER BY u.user_id ASC"
-    )
-)
-public class User implements Serializable {
+public class UserDTO {
+
     @Id
     //@GeneratedValue
     private long user_id;
@@ -26,18 +15,18 @@ public class User implements Serializable {
     private String email;
     @NotNull
     private String password;
-
+    private String user_type;
     private long phone;
 
-    public User() {
-
+    public UserDTO() {
     }
 
-    public User(long user_id, String name, String email, String password, long phone) {
+    public UserDTO(long user_id, String name, String email, String password, String user_type,long phone) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.password = password;
+        this.user_type = user_type;
         this.phone = phone;
     }
 
@@ -81,8 +70,11 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    //@Transient
-    public String getUserType() {
-        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    public String getUser_type() {
+        return user_type;
+    }
+
+    public void setUser_type(String user_type) {
+        this.user_type = user_type;
     }
 }

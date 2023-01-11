@@ -1,24 +1,10 @@
-package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
+package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 
-@Entity
-@Table(name="users",uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type")
-@NamedQueries(
-    @NamedQuery(
-        name = "getAllUsers",
-        query = "SELECT u " +
-                "FROM User u " +
-                "ORDER BY u.user_id ASC"
-    )
-)
-public class User implements Serializable {
+public class InsuranceDTO {
     @Id
-    //@GeneratedValue
     private long user_id;
     @NotNull
     private String name;
@@ -26,27 +12,30 @@ public class User implements Serializable {
     private String email;
     @NotNull
     private String password;
-
     private long phone;
+    private String address;
+    private long share_capital;
 
-    public User() {
+    public InsuranceDTO() {
 
     }
 
-    public User(long user_id, String name, String email, String password, long phone) {
+    public InsuranceDTO(long user_id, String name, String email, String password, long phone, String address, long share_capital) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
-    }
-
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+        this.address = address;
+        this.share_capital = share_capital;
     }
 
     public long getUser_id() {
         return user_id;
+    }
+
+    public void setUser_id(long user_id) {
+        this.user_id = user_id;
     }
 
     public String getName() {
@@ -81,8 +70,19 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    //@Transient
-    public String getUserType() {
-        return this.getClass().getAnnotation(DiscriminatorValue.class).value();
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public long getShare_capital() {
+        return share_capital;
+    }
+
+    public void setShare_capital(long share_capital) {
+        this.share_capital = share_capital;
     }
 }

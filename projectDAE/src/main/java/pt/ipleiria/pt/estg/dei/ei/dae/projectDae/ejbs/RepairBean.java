@@ -13,8 +13,8 @@ public class RepairBean {
     EntityManager entityManager;
 
 
-    public Repair create(String name, String email, String password, long phone) {
-        Repair repair = new Repair(name, email, password, phone);
+    public Repair create(long user_id, String name, String email, String password, long phone) {
+        Repair repair = new Repair(user_id, name, email, password, phone);
         entityManager.persist(repair);
         return repair;
     }

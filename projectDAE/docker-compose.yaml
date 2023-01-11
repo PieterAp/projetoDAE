@@ -20,6 +20,7 @@ services:
     environment:
       - DATASOURCE_JNDI
       - DATASOURCE_NAME
+      - MOCKAPI_url
       - DB_USER
       - DB_PASS
       - DB_HOST
