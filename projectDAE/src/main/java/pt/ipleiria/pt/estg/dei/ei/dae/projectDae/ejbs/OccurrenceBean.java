@@ -96,9 +96,7 @@ public class OccurrenceBean {
         occurrence.setStatus(status);
         occurrence.setRepair_id(repair_id);
         occurrence.setExpert_id(expert_id);
-        System.out.println("&&" + occurrence.getRepair_id() + "_" + repair_id);
-        System.out.println("&&" + occurrence.getExpert_id() + "_" + expert_id);
-        entityManager.merge(occurrence);
+
         Occurrence editedOccurrence = entityManager.find(Occurrence.class, occurrenceid);
         if (!editedOccurrence.getStatus().equals(status)) {
             return false;
