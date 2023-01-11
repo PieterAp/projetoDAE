@@ -73,7 +73,8 @@ public class ConfigBean {
             Occurrence occurrence = occurrenceBean.create(clientEmp.getUser_id(), 10, policiesClientEmp.get(0).getId(), "Acidente de trabalho, viatura danificada", "Submitted");
             occurrenceBean.create(clientEmp.getUser_id(), 11, policiesClientEmp.get(0).getId(), "Incendio no armazem", "Submitted");
             occurrence.setRepair_id(14);
-            occurrenceBean.update(occurrence.getOccurrence_id(), occurrence.getStatus(), occurrence.getRepair_id());
+            occurrence.setExpert_id(12);
+            occurrenceBean.update(occurrence.getOccurrence_id(), occurrence.getStatus(), occurrence.getRepair_id(),occurrence.getExpert_id());
         } else {
             System.out.println("Client " + clientEmp.getUser_id() + " does not have policies");
         }

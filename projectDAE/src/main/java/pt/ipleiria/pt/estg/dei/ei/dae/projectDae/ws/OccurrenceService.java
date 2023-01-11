@@ -46,7 +46,7 @@ public class OccurrenceService {
     @PUT
     @Path("/{occurrenceid}")
     public Response updateCourse(@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
-        boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus(), occurrenceDTO.getRepair_id());
+        boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus(), occurrenceDTO.getRepair_id(), occurrenceDTO.getExpert_id());
 
         if (!taskComplete) {
             return Response.status(Response.Status.BAD_REQUEST).build();

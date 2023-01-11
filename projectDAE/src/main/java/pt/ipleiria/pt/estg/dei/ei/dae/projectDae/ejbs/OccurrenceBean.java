@@ -49,10 +49,11 @@ public class OccurrenceBean {
     }
 
     //todo: WARNING, ONLY UPDATES THE STATUS!!
-    public boolean update(long occurrenceid, String status, long repair_id) {
+    public boolean update(long occurrenceid, String status, long repair_id, long expert_id) {
         Occurrence occurrence = find(occurrenceid);
         occurrence.setStatus(status);
         occurrence.setRepair_id(repair_id);
+        occurrence.setExpert_id(expert_id);
 
         Occurrence editedOccurrence = entityManager.find(Occurrence.class, occurrenceid);
         if (!editedOccurrence.getStatus().equals(status)) {

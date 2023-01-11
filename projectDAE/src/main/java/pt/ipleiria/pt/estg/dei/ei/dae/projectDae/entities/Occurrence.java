@@ -48,9 +48,8 @@ public class Occurrence implements Serializable {
 
     private long policy_id;
 
-    @Null
     private long repair_id;
-    @Null
+
     private long expert_id;
 
     private String description;
