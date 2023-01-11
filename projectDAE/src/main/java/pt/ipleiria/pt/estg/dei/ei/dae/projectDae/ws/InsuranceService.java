@@ -3,6 +3,7 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ws;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.InsuranceDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.InsuranceBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Authenticated;
 
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @Path("insurances")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
+@Authenticated
 public class InsuranceService {
     @EJB
     InsuranceBean insuranceBean;

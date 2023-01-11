@@ -1,5 +1,8 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos;
 
+import org.hibernate.Hibernate;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
@@ -28,6 +31,17 @@ public class UserDTO {
         this.password = password;
         this.user_type = user_type;
         this.phone = phone;
+    }
+
+    public static UserDTO from(User user) {
+        return new UserDTO(
+                user.getUser_id(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                Hibernate.getClass(user).getSimpleName(),
+                user.getPhone()
+        );
     }
 
     public void setUser_id(long user_id) {

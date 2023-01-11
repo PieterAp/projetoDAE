@@ -4,6 +4,7 @@ import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.PolicyDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.ClientBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.PolicyBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Authenticated;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Path("clients")
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
+@Authenticated
 public class ClientService {
     @EJB
     private ClientBean clientBean;

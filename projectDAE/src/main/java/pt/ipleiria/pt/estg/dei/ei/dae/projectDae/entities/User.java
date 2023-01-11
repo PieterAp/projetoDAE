@@ -5,16 +5,21 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name="users",uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 @NamedQueries(
-    @NamedQuery(
-        name = "getAllUsers",
-        query = "SELECT u " +
-                "FROM User u " +
-                "ORDER BY u.user_id ASC"
-    )
+        {@NamedQuery(
+                name = "getAllUsers",
+                query = "SELECT u " +
+                        "FROM User u " +
+                        "ORDER BY u.user_id ASC"
+        ), @NamedQuery(
+                name = "findUserEmail",
+                query = "SELECT u " +
+                        "FROM User u " +
+                        "WHERE u.email LIKE :email"
+        )}
 )
 public class User implements Serializable {
     @Id
