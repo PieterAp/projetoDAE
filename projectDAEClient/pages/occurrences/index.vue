@@ -55,6 +55,9 @@ export default {
       }).then(() => {
         location.reload();
       })
+    },
+    uploadFile(row){
+      this.$router.push('/upload')
     }
   }
 }
