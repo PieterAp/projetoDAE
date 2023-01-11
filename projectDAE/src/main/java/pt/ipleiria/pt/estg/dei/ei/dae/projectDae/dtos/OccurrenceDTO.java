@@ -5,22 +5,20 @@ import javax.persistence.Id;
 public class OccurrenceDTO {
     @Id
     private long occurrence_id;
-
     private long client_id;
-
+    private long insurance_id;
     private long policy_id;
-
     private String description;
-
     private String status;
 
     public OccurrenceDTO() {
 
     }
 
-    public OccurrenceDTO(long occurrence_id, long client_id, long policy_id, String description, String status) {
+    public OccurrenceDTO(long occurrence_id, long client_id, long insurance_id, long policy_id, String description, String status) {
         this.occurrence_id = occurrence_id;
         this.client_id = client_id;
+        this.insurance_id = insurance_id;
         this.policy_id = policy_id;
         this.description = description;
         this.status = status;
@@ -64,5 +62,13 @@ public class OccurrenceDTO {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public long getInsurance_id() {
+        return insurance_id;
+    }
+
+    public void setInsurance_id(long insurance_id) {
+        this.insurance_id = insurance_id;
     }
 }

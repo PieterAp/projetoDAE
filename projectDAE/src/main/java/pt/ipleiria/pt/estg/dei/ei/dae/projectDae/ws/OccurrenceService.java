@@ -28,8 +28,8 @@ public class OccurrenceService {
     @Path("/")
     public Response createCourse (OccurrenceDTO occurrenceDTO) {
         Occurrence createdOccurrence = occurrenceBean.create(
-                occurrenceDTO.getOccurrence_id(),
                 occurrenceDTO.getClient_id(),
+                occurrenceDTO.getInsurance_id(),
                 occurrenceDTO.getPolicy_id(),
                 occurrenceDTO.getDescription(),
                 occurrenceDTO.getStatus());
@@ -40,6 +40,7 @@ public class OccurrenceService {
         return Response.status(Response.Status.CREATED).entity(toDTO(createdOccurrence)).build();
     }
 
+    //todo: WARNING, ONLY UPDATES THE STATUS!! ↓ ↓ ↓ ↓
     @PUT
     @Path("/{occurrenceid}")
     public Response updateCourse (@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
@@ -51,11 +52,11 @@ public class OccurrenceService {
         return Response.status(Response.Status.OK).build();
     }
 
-
     private OccurrenceDTO toDTO(Occurrence occurrence) {
         return new OccurrenceDTO(
                 occurrence.getOccurrence_id(),
                 occurrence.getClient_id(),
+                occurrence.getInsurance_id(),
                 occurrence.getPolicy_id(),
                 occurrence.getDescription(),
                 occurrence.getStatus()

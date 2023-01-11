@@ -37,7 +37,8 @@
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
                     <li class="nav-item" v-else>
-                        <nuxt-link class="nav-link" to="/auth/login">
+                        <!--<nuxt-link class="nav-link" to="/auth/login">-->
+                        <nuxt-link class="nav-link" to="/auth/tempLogin">
                             Sign In
                         </nuxt-link>
                     </li>

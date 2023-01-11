@@ -1,7 +1,6 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Expert;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -12,7 +11,6 @@ public class ExpertBean {
 
     @PersistenceContext
     EntityManager entityManager;
-
 
     public Expert create(long user_id, String name, String email, String password, long phone) {
         Expert expert = new Expert(user_id,name, email, password, phone);

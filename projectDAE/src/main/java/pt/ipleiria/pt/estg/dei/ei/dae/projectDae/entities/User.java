@@ -9,29 +9,14 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "user_type")
 @NamedQueries(
-        {
-            @NamedQuery(
-                name = "getAllUsers",
-                query = "SELECT u " +
-                        "FROM User u " +
-                        "ORDER BY u.user_id ASC"
-            ),
-            @NamedQuery(
-                name = "findUserByNif",
-                query = "SELECT u " +
-                        "FROM User u " +
-                        "WHERE u.nif = :userNif "
-            ),
-            @NamedQuery(
-                name = "findUserByNipc",
-                query = "SELECT u " +
-                        "FROM User u " +
-                        "WHERE u.nipc = :userNipc "
-            )
-        }
+    @NamedQuery(
+        name = "getAllUsers",
+        query = "SELECT u " +
+                "FROM User u " +
+                "ORDER BY u.user_id ASC"
+    )
 )
 public class User implements Serializable {
-
     @Id
     //@GeneratedValue
     private long user_id;
@@ -45,6 +30,7 @@ public class User implements Serializable {
     private long phone;
 
     public User() {
+
     }
 
     public User(long user_id, String name, String email, String password, long phone) {
@@ -95,7 +81,7 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-    @Transient
+    //@Transient
     public String getUserType() {
         return this.getClass().getAnnotation(DiscriminatorValue.class).value();
     }

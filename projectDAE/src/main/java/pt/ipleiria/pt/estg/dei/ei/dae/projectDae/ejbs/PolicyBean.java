@@ -21,8 +21,8 @@ public class PolicyBean {
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy[].class);
 
-        //filter array to get only policies from user id
-        List<Policy> policies = new LinkedList<Policy>();
+        //filter array to *strictly* only get policies from user id
+        List<Policy> policies = new LinkedList<>();
         for (Policy policy : responsePolicies) {
             if (policy.getUser_id() == user_id) {
                 policies.add(policy);

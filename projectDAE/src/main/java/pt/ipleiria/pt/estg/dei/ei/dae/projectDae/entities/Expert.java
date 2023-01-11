@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class Expert extends User implements Serializable {
 
     public Expert() {
+
     }
 
     public Expert(long user_id, String name, String email, String password, long phone) {

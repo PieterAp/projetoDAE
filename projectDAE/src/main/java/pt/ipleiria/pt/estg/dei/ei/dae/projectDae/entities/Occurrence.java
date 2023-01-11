@@ -2,17 +2,15 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name="occurrences")
 @NamedQueries(
     @NamedQuery(
-            name = "getAllOccurrences",
-            query = "SELECT o " +
-                    "FROM Occurrence o " +
-                    "ORDER BY o.occurrence_id ASC"
+        name = "getAllOccurrences",
+        query = "SELECT o " +
+                "FROM Occurrence o " +
+                "ORDER BY o.occurrence_id ASC"
     )
 )
 public class Occurrence implements Serializable {

@@ -1,5 +1,3 @@
-
-
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.providers;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

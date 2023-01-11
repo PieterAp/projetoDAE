@@ -1,46 +1,66 @@
 <template>
-  <div>
       <b-container class="text-center">
-        <h2>Index page, used for user picking</h2>
-      </b-container>
-      <div class="w-50 p-3 mb-1 3 mx-auto">
-          <b-form @submit.prevent="userPick" class="text-left">
-              <b-form-group label="User type:">
-                  <b-form-select v-model="choosenUserId">
-                      <option :value="null" disabled>- Choose an option -</option>
-                      <template v-for="user in users">
-                          <option :key="user.user_id" :value="user.user_id">
-                              {{ user.user_type }} - {{ user.name }} (id: {{ user.user_id }})
-                          </option>
-                      </template>
-                  </b-form-select>
-              </b-form-group>
+        <h2>Welcome to your favorite insurance manager</h2>
+        <b-button
+            variant="success"
+            type="reset"
+            @click="errorMsg=false"
+            v-if="userId==undefined"
+            :to="`/auth/tempLogin`">
+                Login
+        </b-button>
+        <div class="text-left" v-if="user.user_type == 'Client'">
+            <br>
+            <h5>As a client I want to:</h5>
+            <div class="h6" style="margin-left: 20px;">
+                • Create a new occurance <b-button variant="primary" :to="`/occurrences/${userId}/create`">Go</b-button>
+                <br>
+                • View created occurances, check their state
+            </div>
+        </div>
 
-              <div class="text-center">
-                  <b-button variant="primary" type="submit" @click.prevent="userPick">SET USER</b-button>
-              </div>
-          </b-form>
-      </div>
-  </div>
+        <div class="text-left" v-if="user.user_type == 'Insurance'">
+            <br>
+            <h5>As an insurance company I want to:</h5>
+            <div class="h6" style="margin-left: 20px;">
+                • View occurrances
+                <br>
+                • View clients
+            </div>
+        </div>
+
+        <div class="text-left" v-if="user.user_type == 'Expert'">
+            <br>
+            <h5>As an expert I want to:</h5>
+            <div class="h6" style="margin-left: 20px;">
+                • Manage occurances which have been assigned to me
+            </div>
+        </div>
+
+        <div class="text-left" v-if="user.user_type == 'Repair'">
+            <br>
+            <h5>As a repair employee I want to:</h5>
+            <div class="h6" style="margin-left: 20px;">
+                • Manage occurances which have been assigned to me
+            </div>
+        </div>
+      </b-container>
 </template>
 
 <script>
 export default {
     data() {
         return {
-          choosenUserId: null,
-          users: []
+            user: {},
+            userId: null
         }
     },
-    created() {
-        this.$axios.$get(`/api/users/`)
-            .then(users => this.users = users)        
-    },
-    methods: {
-        userPick() {
-          localStorage.setItem("userId", this.choosenUserId)
-          location.reload();
-        }
+    mounted() {
+        this.userId = localStorage.getItem("userId")
+        this.$axios.$get(`/api/users/${this.userId}`)
+        .then((user) => {
+            this.user = user
+        })
     }
 }
 </script>

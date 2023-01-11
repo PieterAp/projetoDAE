@@ -1,17 +1,23 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.io.Serializable;
 @Entity
 @DiscriminatorValue("Insurance")
+@NamedQueries(
+    @NamedQuery(
+            name = "getAllUsersInsurance",
+            query = "SELECT i " +
+                    "FROM Insurance i " +
+                    "ORDER BY i.user_id ASC"
+    )
+)
 public class Insurance extends User implements Serializable {
-
     private String address;
     private long share_capital;
 
     public Insurance() {
+
     }
 
     public Insurance(long user_id, String name, String email, String password, long phone, String address, long share_capital) {

@@ -23,22 +23,11 @@ public class UserService {
     @EJB
     private UserBean userBean;
 
-    @EJB
-    private PolicyBean policyBean;
-
     @GET
     @Path("/")
     public List<UserDTO> getAllUsers() {
         return toDTOs(userBean.getAllUsers());
     }
-
-    /*
-    @GET
-    @Path("/insuranceComp")
-    public List<UserDTO> getAllInsuranceComps() {
-        return toDTOs(userBean.findAllInsuranceComp());
-    }
-    */
 
     @GET
     @Path("/{user_id}")
@@ -49,20 +38,8 @@ public class UserService {
             return Response.ok(toDTO(foundUser)).build();
         }
         return Response.status(Response.Status.NOT_FOUND)
-                .entity("ERROR_FINDING_COURSE")
+                .entity("ERROR_FINDING_USER")
                 .build();
-    }
-
-    @GET
-    @Path("/{user_id}/policies")
-    public List<PolicyDTO> getPolicies(@PathParam("user_id") long user_id) {
-        List<Policy> foundPolicies = policyBean.getPoliciesByUserId(user_id);
-
-        if (foundPolicies.size() > 0) {
-            return toDTOsPolicy(foundPolicies);
-        }
-
-        return null;
     }
 
     private UserDTO toDTO(User user) {
@@ -78,19 +55,5 @@ public class UserService {
 
     private List<UserDTO> toDTOs(List<User> users) {
         return users.stream().map(this::toDTO).collect(Collectors.toList());
-    }
-
-    private PolicyDTO toDTOpolicy(Policy policy) {
-        return new PolicyDTO(
-                policy.getId(),
-                policy.getUser_id(),
-                policy.getDescription(),
-                policy.getType(),
-                policy.getCreatedAt()
-        );
-    }
-
-    private List<PolicyDTO> toDTOsPolicy(List<Policy> policies) {
-        return policies.stream().map(this::toDTOpolicy).collect(Collectors.toList());
     }
 }

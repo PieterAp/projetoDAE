@@ -14,7 +14,7 @@
 
                 <b-form-group label="Insurance company:">
                     <b-form-select v-model="insurance_id">
-                        <option :value="null" disabled>- Choose an option -</option>
+                        <option :value="null" disabled>- Choose an insurance company</option>
                         <template v-for="insuranceCompany in insuranceCompanies">
                             <option :key="insuranceCompany.user_id" :value="insuranceCompany.user_id">
                                 {{ insuranceCompany.name }}
@@ -25,7 +25,7 @@
                 
                 <b-form-group label="Policy:">
                     <b-form-select v-model="policy_id">
-                        <option :value="null" disabled>- Choose an option -</option>
+                        <option :value="null" disabled>- Choose a policy</option>
                         <template v-for="policy in policies">
                             <option :key="policy.id" :value="policy.id">
                                 {{ policy.description }}
@@ -44,8 +44,7 @@
 
                 <p v-show="errorMsg" class="text-danger">{{errorMsg}}</p>
                 <div class="text-center">
-                    <nuxt-link to="/users">Return</nuxt-link>
-                    <b-button variant="danger" type="reset" @click="errorMsg=false">RESET</b-button>
+                    <nuxt-link to="/">Return</nuxt-link>
                     <b-button variant="primary" type="submit" @click.prevent="create">CREATE</b-button>
                 </div>
             </b-form>
@@ -73,9 +72,9 @@ export default {
     created() {
         this.$axios.$get(`/api/users/${this.userid}`)
             .then(user => this.user = user)
-            .then(() => this.$axios.$get(`/api/users/${this.userid}/policies`))
+            .then(() => this.$axios.$get(`/api/clients/${this.userid}/policies`))
             .then(policies => this.policies = policies)        
-            .then(() => this.$axios.$get(`/api/users/insuranceComp`))
+            .then(() => this.$axios.$get(`/api/insurances`))
             .then(insuranceCompanies => this.insuranceCompanies = insuranceCompanies)        
         
     },
