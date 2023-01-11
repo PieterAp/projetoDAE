@@ -1,14 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="war" name="projectDae:war">
+  <artifact type="war" name="projectDAE:war">
     <output-path>$PROJECT_DIR$/target</output-path>
     <properties id="maven-jee-properties">
       <options>
-        <module>projectDae</module>
+        <module>projectDAE</module>
         <packaging>war</packaging>
       </options>
     </properties>
     <root id="archive" name="projectDae.war">
-      <element id="artifact" artifact-name="projectDae:war exploded" />
+      <element id="artifact" artifact-name="projectDAE:war exploded" />
     </root>
   </artifact>
 </component>

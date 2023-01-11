@@ -1,12 +1,7 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ws;
 
-
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.PolicyDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.UserDTO;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.OccurrenceBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.PolicyBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.UserBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 
 import javax.ejb.EJB;

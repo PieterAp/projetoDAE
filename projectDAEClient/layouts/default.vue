@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <b-navbar toggleable="lg">
+        <b-navbar toggleable="lg" class="navbar bg-dark navbar-dark" >
             <b-navbar-brand to="/">
                 projetoDAE
             </b-navbar-brand>
@@ -18,13 +18,6 @@
                         </nuxt-link>
                     </li>
                 </b-navbar-nav>
-                
-                <b-navbar-nav class="ml-auto">
-                    <li class="nav-item h6">
-                        <small>I am:</small> {{ user.name }} ({{ user.user_type }}), id: {{ user.user_id }}
-                    </li>
-                </b-navbar-nav>
-
                 <!-- Right aligned nav items -->
                 <b-navbar-nav class="ml-auto">
                     <b-nav-item-dropdown v-if="$auth.loggedIn" right>
@@ -37,8 +30,7 @@
                         </b-dropdown-item>
                     </b-nav-item-dropdown>
                     <li class="nav-item" v-else>
-                        <!--<nuxt-link class="nav-link" to="/auth/login">-->
-                        <nuxt-link class="nav-link" to="/auth/tempLogin">
+                        <nuxt-link class="nav-link" to="/auth/login">
                             Sign In
                         </nuxt-link>
                     </li>
@@ -52,18 +44,6 @@
 </template>
 <script>
 export default {
-    data() {
-        return {
-            user: {}
-        }
-    },
-    mounted() {
-        const userId = localStorage.getItem("userId")
-        this.$axios.$get(`/api/users/${userId}`)
-        .then(user => {
-                this.user = user
-        })
-    },
     methods: {
         signOut() {
             this.$auth.logout()
