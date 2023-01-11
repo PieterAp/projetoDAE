@@ -17,19 +17,46 @@ public class OccurrenceBean {
         return (List<Occurrence>) entityManager.createNamedQuery("getAllOccurrences").getResultList();
     }
 
-    public Occurrence create (long client_id, long insurance_id, long policy_id, String description, String status) {
+    public List<Occurrence> getAllUserOccurrences(long user_id) {
+        return (List<Occurrence>) entityManager.createNamedQuery("getAllUserOccurrences")
+                .setParameter("user_id", user_id)
+                .getResultList();
+    }
+
+    public List<Occurrence> getAllInsuranceOccurrences(long insurance_id) {
+        return (List<Occurrence>) entityManager.createNamedQuery("getAllInsuranceOccurrences")
+                .setParameter("insurance_id", insurance_id)
+                .getResultList();
+    }
+
+    public List<Occurrence> getAllRepairOccurrences(long repair_id) {
+        return (List<Occurrence>) entityManager.createNamedQuery("getAllRepairOccurrences")
+                .setParameter("repair_id", repair_id)
+                .getResultList();
+    }
+
+    public List<Occurrence> getAllExpertOccurrences(long expert_id) {
+        return (List<Occurrence>) entityManager.createNamedQuery("getAllExpertOccurrences")
+                .setParameter("expert_id", expert_id)
+                .getResultList();
+    }
+
+    public Occurrence create(long client_id, long insurance_id, long policy_id, String description, String status) {
         Occurrence occurrence = new Occurrence(client_id, insurance_id, policy_id, description, status);
         entityManager.persist(occurrence);
         return occurrence;
+
     }
 
     //todo: WARNING, ONLY UPDATES THE STATUS!!
-    public boolean update (long occurrenceid, String newStatus) {
+    public boolean update(long occurrenceid, String status, long repair_id, long expert_id) {
         Occurrence occurrence = find(occurrenceid);
-        occurrence.setStatus(newStatus);
+        occurrence.setStatus(status);
+        occurrence.setRepair_id(repair_id);
+        occurrence.setExpert_id(expert_id);
 
         Occurrence editedOccurrence = entityManager.find(Occurrence.class, occurrenceid);
-        if (!editedOccurrence.getStatus().equals(newStatus)){
+        if (!editedOccurrence.getStatus().equals(status)) {
             return false;
         }
         return true;

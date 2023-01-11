@@ -23,7 +23,7 @@
                     <b-nav-item-dropdown v-if="$auth.loggedIn" right>
                         <!-- Using 'button-content' slot -->
                         <template #button-content>
-                            <em>{{ $auth.user.username }}</em>
+                            <em style="padding-right: 15px">{{ $auth.user.name + " ["+$auth.user.user_type+"]" }}</em>
                         </template>
                         <b-dropdown-item @click.prevent="signOut">
                             Sign Out
