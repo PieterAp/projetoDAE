@@ -22,13 +22,13 @@ public class OccurrenceService {
 
     @GET
     @Path("/")
-    public List<OccurrenceDTO> getAllOccurrences(){
+    public List<OccurrenceDTO> getAllOccurrences() {
         return toDTOs(occurrenceBean.getAllOccurrences());
     }
 
     @POST
     @Path("/")
-    public Response createCourse (OccurrenceDTO occurrenceDTO) {
+    public Response createCourse(OccurrenceDTO occurrenceDTO) {
         Occurrence createdOccurrence = occurrenceBean.create(
                 occurrenceDTO.getClient_id(),
                 occurrenceDTO.getInsurance_id(),
@@ -45,8 +45,8 @@ public class OccurrenceService {
     //todo: WARNING, ONLY UPDATES THE STATUS!! ↓ ↓ ↓ ↓
     @PUT
     @Path("/{occurrenceid}")
-    public Response updateCourse (@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
-        boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus());
+    public Response updateCourse(@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
+        boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus(), occurrenceDTO.getRepair_id());
 
         if (!taskComplete) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -60,6 +60,8 @@ public class OccurrenceService {
                 occurrence.getClient_id(),
                 occurrence.getInsurance_id(),
                 occurrence.getPolicy_id(),
+                occurrence.getRepair_id(),
+                occurrence.getExpert_id(),
                 occurrence.getDescription(),
                 occurrence.getStatus()
         );

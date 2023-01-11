@@ -8,6 +8,10 @@ public class OccurrenceDTO {
     private long client_id;
     private long insurance_id;
     private long policy_id;
+
+    private long repair_id;
+
+    private long expert_id;
     private String description;
     private String status;
 
@@ -15,13 +19,31 @@ public class OccurrenceDTO {
 
     }
 
-    public OccurrenceDTO(long occurrence_id, long client_id, long insurance_id, long policy_id, String description, String status) {
+    public OccurrenceDTO(long occurrence_id, long client_id, long insurance_id, long policy_id,long repair_id, long expert_id, String description, String status) {
         this.occurrence_id = occurrence_id;
         this.client_id = client_id;
         this.insurance_id = insurance_id;
         this.policy_id = policy_id;
+        this.repair_id = repair_id;
+        this.expert_id = expert_id;
         this.description = description;
         this.status = status;
+    }
+
+    public long getRepair_id() {
+        return repair_id;
+    }
+
+    public void setRepair_id(long repair_id) {
+        this.repair_id = repair_id;
+    }
+
+    public long getExpert_id() {
+        return expert_id;
+    }
+
+    public void setExpert_id(long expert_id) {
+        this.expert_id = expert_id;
     }
 
     public long getOccurrence_id() {
