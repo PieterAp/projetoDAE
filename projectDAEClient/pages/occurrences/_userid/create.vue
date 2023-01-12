@@ -34,7 +34,7 @@
                     maxlength="255"
                     ></b-form-textarea>
                     <div class="text-right text-muted small">
-                        Máximo 255 caracteres
+                        Min 10 caracteres, max 255 caracteres
                     </div>
                 </b-form-group>
 
