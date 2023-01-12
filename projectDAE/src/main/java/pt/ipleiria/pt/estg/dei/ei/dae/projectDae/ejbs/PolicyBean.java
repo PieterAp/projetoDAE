@@ -32,6 +32,23 @@ public class PolicyBean {
         return policies;
     }
 
+    public Policy getPoliciesById (long policy_id) {
+        Client client = ClientBuilder.newClient();
+        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+"/policies?id=" + policy_id)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Policy[].class);
+
+        //filter array to *strictly* only get policies from user id
+        List<Policy> policies = new LinkedList<>();
+        for (Policy policy : responsePolicies) {
+            if (policy.getId() == policy_id) {
+                policies.add(policy);
+            }
+        }
+
+        return policies.get(0);
+    }
+
     private PolicyDTO toDTO(Policy policy) {
         return new PolicyDTO(
                 policy.getId(),
