@@ -30,12 +30,12 @@ import java.util.List;
                 name = "getAllRepairOccurrences",
                 query = "SELECT o " +
                         "FROM Occurrence o " +
-                        "WHERE o.repair_id = :repair_id OR o.repair_id = null"
+                        "WHERE o.repair_id = :repair_id OR o.repair_id = 0"
         ), @NamedQuery(
                 name = "getAllExpertOccurrences",
                 query = "SELECT o " +
                         "FROM Occurrence o " +
-                        "WHERE o.expert_id = :expert_id OR o.expert_id = null"
+                        "WHERE o.expert_id = :expert_id OR o.expert_id = 0"
         )}
 )
 public class Occurrence implements Serializable {
