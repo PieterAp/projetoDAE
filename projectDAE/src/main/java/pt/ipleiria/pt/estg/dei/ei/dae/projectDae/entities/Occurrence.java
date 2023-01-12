@@ -58,6 +58,7 @@ public class Occurrence implements Serializable {
 
     private String status;
 
+
     @OneToMany(mappedBy = "occurrence")
     private List<Document> documents;
 

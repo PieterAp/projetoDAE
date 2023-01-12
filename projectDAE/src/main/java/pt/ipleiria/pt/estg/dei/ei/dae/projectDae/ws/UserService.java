@@ -2,8 +2,12 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ws;
 
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.OccurrenceDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.UserDTO;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.ClientBean;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.InsuranceBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.OccurrenceBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.UserBean;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Client;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 
@@ -23,6 +27,12 @@ public class UserService {
     private UserBean userBean;
 
     @EJB
+    private ClientBean clientBean;
+
+    @EJB
+    private InsuranceBean insuranceBean;
+
+    @EJB
     private OccurrenceBean occurrenceBean;
 
     @GET
@@ -36,12 +46,13 @@ public class UserService {
     public Response getUser(@PathParam("user_id") long user_id) {
         User foundUser = userBean.find(user_id);
 
-        if (foundUser != null) {
-            return Response.ok(toDTO(foundUser)).build();
+        if (foundUser.getUserType().equals("Client")) {
+            return Response.ok(toClientDTO(foundUser)).build();
+        } else if (foundUser.getUserType().equals("Insurance")) {
+            return Response.ok(toInsuranceDTO(foundUser)).build();
         }
-        return Response.status(Response.Status.NOT_FOUND)
-                .entity("ERROR_FINDING_USER")
-                .build();
+
+        return Response.ok(toDTO(foundUser)).build();
     }
 
     @GET
@@ -74,6 +85,35 @@ public class UserService {
                 user.getEmail(),
                 user.getPassword(),
                 user.getUserType(),
+                user.getPhone()
+        );
+    }
+
+    private UserDTO toClientDTO(User user) {
+        Client client = clientBean.findUserId(user.getUser_id());
+        return new UserDTO(
+                user.getUser_id(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getUserType(),
+                client.getAddress(),
+                client.getNif(),
+                client.getNipc(),
+                user.getPhone()
+        );
+    }
+
+    private UserDTO toInsuranceDTO(User user) {
+        Insurance insurance = insuranceBean.findUserId(user.getUser_id());
+        return new UserDTO(
+                user.getUser_id(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getUserType(),
+                insurance.getAddress(),
+                insurance.getShare_capital(),
                 user.getPhone()
         );
     }

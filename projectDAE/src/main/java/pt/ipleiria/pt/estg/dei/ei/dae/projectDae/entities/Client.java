@@ -9,28 +9,35 @@ import java.io.Serializable;
 @Entity
 @DiscriminatorValue("Client")
 @NamedQueries(
-    {
-        @NamedQuery(
-                name = "getAllClients",
+        {
+                @NamedQuery(
+                        name = "getAllClients",
+                        query = "SELECT c " +
+                                "FROM Client c " +
+                                "ORDER BY c.user_id ASC"
+                ),
+                @NamedQuery(
+                        name = "findClientByNif",
+                        query = "SELECT c " +
+                                "FROM Client c " +
+                                "WHERE c.nif = :userNif "
+                ),
+                @NamedQuery(
+                        name = "findClientByNipc",
+                        query = "SELECT c " +
+                                "FROM Client c " +
+                                "WHERE c.nipc = :userNipc "
+                ), @NamedQuery(
+                name = "findClientByUserId",
                 query = "SELECT c " +
                         "FROM Client c " +
-                        "ORDER BY c.user_id ASC"
-        ),
-        @NamedQuery(
-                name = "findClientByNif",
-                query = "SELECT c " +
-                        "FROM Client c " +
-                        "WHERE c.nif = :userNif "
-        ),
-        @NamedQuery(
-                name = "findClientByNipc",
-                query = "SELECT c " +
-                        "FROM Client c " +
-                        "WHERE c.nipc = :userNipc "
+                        "WHERE c.user_id = :userID "
         )
-    }
+
+        }
 )
-public class Client extends  User implements Serializable {
+
+public class Client extends User implements Serializable {
 
     String address;
     long nif;

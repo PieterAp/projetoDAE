@@ -22,6 +22,12 @@ public class ClientBean {
         return client;
     }
 
+    public Client findUserId(long userID) {
+        return (Client) entityManager.createNamedQuery("findClientByUserId")
+                .setParameter("userID",userID)
+                .getSingleResult();
+    }
+
     public Client findByNif(long nif) {
         return (Client) entityManager.createNamedQuery("findClientByNif")
                 .setParameter("userNif",nif)

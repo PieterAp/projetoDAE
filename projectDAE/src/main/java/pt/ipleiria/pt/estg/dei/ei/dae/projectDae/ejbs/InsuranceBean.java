@@ -1,5 +1,6 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Client;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Hasher;
 
@@ -23,6 +24,12 @@ public class InsuranceBean {
         return insurance;
     }
 
+
+    public Insurance findUserId(long userID) {
+        return (Insurance) entityManager.createNamedQuery("findInsuranceByUserId")
+                .setParameter("userID",userID)
+                .getSingleResult();
+    }
     public List<Insurance> getAllInsurances() {
         return (List<Insurance>) entityManager.createNamedQuery("getAllUsersInsurance").getResultList();
     }

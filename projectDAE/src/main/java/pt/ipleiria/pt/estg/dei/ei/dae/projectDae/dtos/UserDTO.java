@@ -19,17 +19,48 @@ public class UserDTO {
     @NotNull
     private String password;
     private String user_type;
+
+    private String address;
+
+    private long nif;
+
+    private long nipc;
+
+    private long share_capital;
     private long phone;
 
     public UserDTO() {
     }
 
-    public UserDTO(long user_id, String name, String email, String password, String user_type,long phone) {
+    public UserDTO(long user_id, String name, String email, String password, String user_type, long phone) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.user_type = user_type;
+        this.phone = phone;
+    }
+
+    public UserDTO(long user_id, String name, String email, String password, String user_type, String address, long nif, long nipc, long phone) {
+        this.user_id = user_id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.user_type = user_type;
+        this.address = address;
+        this.nif = nif;
+        this.nipc = nipc;
+        this.phone = phone;
+    }
+
+    public UserDTO(long user_id, String name, String email, String password, String user_type, String address, long share_capital, long phone) {
+        this.user_id = user_id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.user_type = user_type;
+        this.address = address;
+        this.share_capital = share_capital;
         this.phone = phone;
     }
 
@@ -42,6 +73,38 @@ public class UserDTO {
                 Hibernate.getClass(user).getSimpleName(),
                 user.getPhone()
         );
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public long getNif() {
+        return nif;
+    }
+
+    public void setNif(long nif) {
+        this.nif = nif;
+    }
+
+    public long getNipc() {
+        return nipc;
+    }
+
+    public void setNipc(long nipc) {
+        this.nipc = nipc;
+    }
+
+    public long getShare_capital() {
+        return share_capital;
+    }
+
+    public void setShare_capital(long share_capital) {
+        this.share_capital = share_capital;
     }
 
     public void setUser_id(long user_id) {
