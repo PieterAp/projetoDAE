@@ -43,7 +43,7 @@ public class OccurrenceService {
 
     @POST
     @Path("/")
-    public Response createCourse(OccurrenceDTO occurrenceDTO) {
+    public Response createOccurrence(OccurrenceDTO occurrenceDTO) {
         Occurrence createdOccurrence = occurrenceBean.create(
                 occurrenceDTO.getClient_id(),
                 occurrenceDTO.getInsurance_id(),
@@ -60,8 +60,8 @@ public class OccurrenceService {
     //todo: WARNING, ONLY UPDATES THE STATUS!! ↓ ↓ ↓ ↓
     @PUT
     @Path("/{occurrenceid}")
-    public Response updateCourse(@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
-        boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus());
+    public Response updateOccurrence(@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
+        boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus(), occurrenceDTO.getRepair_id(), occurrenceDTO.getExpert_id());
 
         if (!taskComplete) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -154,12 +154,20 @@ public class OccurrenceService {
         return occurrences.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    @GET
+    @Path("/{occurrenceid}")
+    public Response getOccurrence(@PathParam("occurrenceid") long occurrenceid) {
+        return Response.ok(occurrenceBean.getOccurrenceDetails(occurrenceid)).build();
+    }
+
     private OccurrenceDTO toDTO(Occurrence occurrence) {
         return new OccurrenceDTO(
                 occurrence.getOccurrence_id(),
                 occurrence.getClient_id(),
                 occurrence.getInsurance_id(),
                 occurrence.getPolicy_id(),
+                occurrence.getRepair_id(),
+                occurrence.getExpert_id(),
                 occurrence.getDescription(),
                 occurrence.getStatus()
         );

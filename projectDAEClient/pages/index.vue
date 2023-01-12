@@ -49,7 +49,6 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$auth.user)
     this.userId = this.$auth.user.user_id
     this.$axios.$get(`/api/users/${this.userId}`)
       .then((user) => {

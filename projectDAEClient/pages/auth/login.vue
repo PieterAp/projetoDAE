@@ -49,8 +49,9 @@ export default {
         if (this.$auth.user.user_type === "Client") {
           this.$router.push('/occurrences/' + this.$auth.user.user_id+'/create')
         } else if (this.$auth.user.user_type === "Insurance") {
-          this.$router.push('/users/' + 4)
+          this.$router.push('/occurrences/' + this.$auth.user.user_id+'/create')
         }
+        this.$router.push('/occurrences/' + this.$auth.user.user_id+'/create')
 
       })
       promise.catch(() => {
