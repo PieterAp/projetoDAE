@@ -8,7 +8,7 @@
               class="btn btn-link"
               :to="`/occurrences/${row.item.occurrence_id}`">Details
             </nuxt-link>
-            <a v-if="row.item.status=='Submitted'">
+            <div v-if="row.item.status=='Submitted'">
               <a v-show="user.user_type === 'Expert'">
                 <b-btn class="btn-success" @click="approveOccurrence(row)">Approve</b-btn>
                 <b-btn class="btn-danger" @click="disapproveOccurrence(row)">Disapprove</b-btn>
@@ -17,11 +17,11 @@
                 <b-btn class="btn-success" @click="acceptOccurrence(row)">Accept</b-btn>
                 <b-btn class="btn-danger" @click="denyOccurrence(row)">Deny</b-btn>
               </a>
-            </a>
+            </div>
             <a v-if="row.item.status=='Approved'">
               <a v-show="user.user_type === 'Repair' || user.user_type === 'Expert'">
                 <b-btn class="btn-information" @click="onPickFile">Upload repair files</b-btn>
-                <input type="file" style="display: none" ref="fileInput" @change="onFilePicked(row)" />
+                <input type="file" style="display: none" ref="fileInput" @change="onFilePicked(row)"/>
               </a>
               <a v-show="user.user_type === 'Repair'">
                 <b-btn class="btn-success" @click="endRepair(row)">End repair</b-btn>
@@ -64,28 +64,26 @@ export default {
   },
   methods: {
     approveOccurrence(row) {
+      row.item.status = "Approved"
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
         status: "Approved"
-      }).then(() => {
-        location.reload();
       })
     },
     disapproveOccurrence(row) {
+      row.item.status = "Disapproved"
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
         status: "Disapproved"
-      }).then(() => {
-        location.reload();
       })
     },
     //TODO accept/deny
-    acceptOccurrence(row)  {
+    acceptOccurrence(row) {
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
         status: "Approved"
       }).then(() => {
         location.reload();
       })
     },
-    denyOccurrence(row)  {
+    denyOccurrence(row) {
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
         status: "Disapproved"
       }).then(() => {
@@ -101,7 +99,7 @@ export default {
     },
 
     onPickFile() {
-      
+
       this.$refs.fileInput.click()
     },
 
