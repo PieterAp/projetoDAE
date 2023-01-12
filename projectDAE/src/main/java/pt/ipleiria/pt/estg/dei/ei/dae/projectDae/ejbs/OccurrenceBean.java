@@ -1,5 +1,6 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
+import org.hibernate.Hibernate;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
 
 import javax.ejb.EJB;
@@ -106,6 +107,13 @@ public class OccurrenceBean {
 
     public Occurrence find(long occurrenceid) {
         return entityManager.find(Occurrence.class, occurrenceid);
+    }
+
+    public Occurrence findOrFail(String username) {
+        var occurrence = entityManager.getReference(Occurrence.class, username);
+        Hibernate.initialize(occurrence);
+
+        return occurrence;
     }
 
 }

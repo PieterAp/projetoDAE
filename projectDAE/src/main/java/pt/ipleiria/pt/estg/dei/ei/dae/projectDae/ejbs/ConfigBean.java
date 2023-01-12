@@ -37,13 +37,13 @@ public class ConfigBean {
 
         //region users
         //Individual clients
-        clientBean.create(4, "Mariana", "mariana@mail.pt", "123", 962547452, "Leiria", 45215786, 0);
+        clientBean.create(3, "Mariana", "mariana@mail.pt", "123", 962547452, "Leiria", 45215786, 0);
         //User clientInd = userBean.findByNif(45215786);
         Client clientInd = clientBean.findByNif(45215786);
 
         clientBean.create(39, "Margarida", "margarida@mail.pt", "123", 985234568, "Santarém", 265417929, 0);
         //Enterprise client
-        clientBean.create(37, "Joaquim", "joaquim@mail.pt", "123", 914257865, "Lisboa", 0, 1618198192);
+        clientBean.create(4, "Joaquim", "joaquim@mail.pt", "123", 914257865, "Lisboa", 0, 1618198192);
         //User clientEmp = userBean.findByNipc(1618198192);
         Client clientEmp = clientBean.findByNipc(1618198192);
 
