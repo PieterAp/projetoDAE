@@ -12,8 +12,8 @@ public class Expert extends User implements Serializable {
 
     }
 
-    public Expert(long user_id, String name, String email, String password, long phone) {
-        super(user_id, name, email, password, phone);
+    public Expert( String name, String email, String password, long phone) {
+        super(name, email, password, phone);
     }
 
 }

@@ -1,15 +1,15 @@
 <template>
   <b-container>
-    <h3>Login into your page</h3>
+    <h3>Login</h3>
     <b-form @submit.prevent="onSubmit" @reset="onReset">
-      <b-form-group label="Email" description="Enter your Email">
+      <b-form-group label="Email">
         <b-input
           name="email"
           placeholder="Your email"
           v-model.trim="email"
           required/>
       </b-form-group>
-      <b-form-group label="Password" description="Enter your password">
+      <b-form-group label="Password">
         <b-input
           name="password"
           type="password"
@@ -17,8 +17,8 @@
           v-model="password"
           required/>
       </b-form-group>
-      <b-button type="reset" class="btn-warning">Reset</b-button>
-      <b-button type="submit" class="btn-success">Submit</b-button>
+      <!--<b-button type="reset" class="btn-warning">Reset</b-button>-->
+      <b-button type="submit" class="btn-success">Login</b-button>
     </b-form>
   </b-container>
 </template>
@@ -44,20 +44,11 @@ export default {
       promise.then(() => {
         this.$toast.success('You are logged in!').goAway(3000)
         // check if the user $auth.user object is set
-        console.log(this.$auth.user)
-
-        if (this.$auth.user.user_type === "Client") {
-          this.$router.push('/occurrences/' + this.$auth.user.user_id+'/create')
-        } else if (this.$auth.user.user_type === "Insurance") {
-          this.$router.push('/occurrences/' + this.$auth.user.user_id+'/create')
-        }
-        this.$router.push('/occurrences/' + this.$auth.user.user_id+'/create')
-
+        this.$router.push('/')
       })
       promise.catch(() => {
-        this.$toast.error('Sorry, you cant login. Ensure your credentials are correct').goAway(3000)
+        this.$toast.error("Sorry, you can't login. Ensure your credentials are correct").goAway(3000)
       })
-
     },
     onReset() {
       this.email = null

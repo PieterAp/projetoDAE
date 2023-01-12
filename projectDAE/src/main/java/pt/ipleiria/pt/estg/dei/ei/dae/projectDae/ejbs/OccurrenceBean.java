@@ -1,7 +1,9 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,6 +14,9 @@ public class OccurrenceBean {
 
     @PersistenceContext
     EntityManager entityManager;
+
+    @EJB
+    PolicyBean policyBean;
 
     public List<Occurrence> getAllOccurrences() {
         return (List<Occurrence>) entityManager.createNamedQuery("getAllOccurrences").getResultList();
@@ -41,8 +46,9 @@ public class OccurrenceBean {
                 .getResultList();
     }
 
-    public Occurrence create(long client_id, long insurance_id, long policy_id, String description, String status) {
-        Occurrence occurrence = new Occurrence(client_id, insurance_id, policy_id, description, status);
+    public Occurrence create(long client_id, long policy_id, String description, String status) {
+        Policy foundPolicy = policyBean.find(policy_id);
+        Occurrence occurrence = new Occurrence(client_id, foundPolicy.getInsurance_id(), policy_id, description, "Submitted");
         entityManager.persist(occurrence);
         return occurrence;
 

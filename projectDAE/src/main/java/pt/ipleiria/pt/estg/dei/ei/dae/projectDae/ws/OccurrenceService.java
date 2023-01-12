@@ -28,10 +28,9 @@ public class OccurrenceService {
 
     @POST
     @Path("/")
-    public Response createCourse(OccurrenceDTO occurrenceDTO) {
+    public Response createOccurrence(OccurrenceDTO occurrenceDTO) {
         Occurrence createdOccurrence = occurrenceBean.create(
                 occurrenceDTO.getClient_id(),
-                occurrenceDTO.getInsurance_id(),
                 occurrenceDTO.getPolicy_id(),
                 occurrenceDTO.getDescription(),
                 occurrenceDTO.getStatus());
@@ -45,7 +44,7 @@ public class OccurrenceService {
     //todo: WARNING, ONLY UPDATES THE STATUS!! ↓ ↓ ↓ ↓
     @PUT
     @Path("/{occurrenceid}")
-    public Response updateCourse(@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
+    public Response updateOccurrence(@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {
         boolean taskComplete = occurrenceBean.update(occurrenceid, occurrenceDTO.getStatus(), occurrenceDTO.getRepair_id(), occurrenceDTO.getExpert_id());
 
         if (!taskComplete) {

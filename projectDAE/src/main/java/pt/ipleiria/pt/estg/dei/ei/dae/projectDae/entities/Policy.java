@@ -9,14 +9,16 @@ public class Policy {
     private String description;
     private String type;
     private String createdAt;
+    private long insurance_id;
 
     public Policy() {
 
     }
 
-    public Policy(long id, long user_id, String description, String type, String createdAt) {
+    public Policy(long id, long user_id, long insurance_id, String description, String type, String createdAt) {
         this.id = id;
         this.user_id = user_id;
+        this.insurance_id = insurance_id;
         this.description = description;
         this.type = type;
         this.createdAt = createdAt;
@@ -36,6 +38,14 @@ public class Policy {
 
     public void setUser_id(long user_id) {
         this.user_id = user_id;
+    }
+
+    public long getInsurance_id() {
+        return insurance_id;
+    }
+
+    public void setInsurance_id(long insurance_id) {
+        this.insurance_id = insurance_id;
     }
 
     public String getDescription() {

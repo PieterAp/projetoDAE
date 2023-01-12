@@ -16,8 +16,8 @@ public class RepairBean {
 
     @Inject
     private Hasher hasher;
-    public Repair create(long user_id, String name, String email, String password, long phone) {
-        Repair repair = new Repair(user_id, name, email, hasher.hash(password), phone);
+    public Repair create(String name, String email, String password, long phone) {
+        Repair repair = new Repair(name, email, hasher.hash(password), phone);
         entityManager.persist(repair);
         return repair;
     }
