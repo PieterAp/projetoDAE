@@ -5,9 +5,14 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "documents")
-@NamedQuery(
-    name = "getStudentDocuments",
-    query = "SELECT doc FROM Document doc WHERE doc.occurrence.id = :id"
+@NamedQueries(
+        @NamedQuery(
+                name = "getOccurrenceDocuments",
+                query = "SELECT doc " +
+                        "FROM Document doc "+
+                        "WHERE doc.occurrence.occurrence_id = :id"
+
+        )
 )
 public class Document {
     @Id

@@ -1,11 +1,11 @@
 ###
-POST http://localhost:8080/projectDAE/api/documents
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYW5hQG1haWwucHQiLCJpYXQiOjE2NzM0NzA1MzksImV4cCI6MTY3MzQ3NDEzOX0.65tV5xRiT621PNOCXYBOAmh9PGUXKUSWPP0dCjA9EU4
+POST http://localhost:8080/projectDAE/api/occurrences/1/documents
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYW5hQG1haWwucHQiLCJpYXQiOjE2NzM0ODA3MDgsImV4cCI6MTY3MzQ4NDMwOH0.XCKWCuZE7o4OiVP8fsIFCePgInbTUZ8NNi4HbOBo0w8
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
-Content-Disposition: form-data; name="file"; filename="guitar.jpg"
-< C:\Utilizadores\igors\imagens
+Content-Disposition: form-data; name="file"; filename="lunar.png"
+< C:\Utilizadores\M0hamede\imagens
 --boundary
 
 ###
