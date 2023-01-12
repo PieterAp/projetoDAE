@@ -15,16 +15,17 @@ public class DocumentBean {
     @EJB
     private OccurrenceBean occurrenceBean;
 
+    @EJB
+    private UserBean userBean;
+
     @PersistenceContext
     private EntityManager em;
     
-    public Document create(String filepath, String filename, Long occurrenceID) {
+    public Document create(String filepath, String filename, Long occurrenceID, Long userID) {
         var occurrence = occurrenceBean.find(occurrenceID);
 
-        System.out.println("-------------->>>>>>>> " + occurrence);
-        var document = new Document(filepath, filename, occurrence);
-
-        System.out.println("-------------->>>>>>>> " + document);
+        var user = userBean.find(userID);
+        var document = new Document(filepath, filename, occurrence, user);
 
         em.persist(document);
         occurrence.addDocument(document);

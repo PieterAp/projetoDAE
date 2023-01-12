@@ -77,6 +77,9 @@ public class OccurrenceService {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         List<InputPart> inputParts = uploadForm.get("file");
+
+        InputPart userID = uploadForm.get("id").get(0);
+
         var documents = new LinkedList<Document>();
 
         for (InputPart inputPart : inputParts) {
@@ -95,7 +98,7 @@ public class OccurrenceService {
             String filepath = dirpath + File.separator + filename;
             writeFile(bytes, filepath);
 
-            var document = documentBean.create(filepath, filename, occurrenceid);
+            var document = documentBean.create(filepath, filename, occurrenceid, Long.valueOf(userID.getBodyAsString()) );
             documents.add(document);
         }
 

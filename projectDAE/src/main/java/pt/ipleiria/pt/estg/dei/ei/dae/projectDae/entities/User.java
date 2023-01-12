@@ -3,6 +3,8 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
@@ -34,8 +36,11 @@ public class User implements Serializable {
 
     private long phone;
 
-    public User() {
+    @OneToMany(mappedBy = "user")
+    private List<Document> documents;
 
+    public User() {
+        this.documents = new ArrayList<>();
     }
 
     public User(long user_id, String name, String email, String password, long phone) {
@@ -44,6 +49,7 @@ public class User implements Serializable {
         this.email = email;
         this.password = password;
         this.phone = phone;
+        this.documents = new ArrayList<>();
     }
 
     public void setUser_id(long user_id) {
@@ -84,6 +90,20 @@ public class User implements Serializable {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
+
+    public void addDocument(Document document) {
+        if (! this.documents.contains(document)) {
+            this.documents.add(document);
+        }
     }
 
     //@Transient
