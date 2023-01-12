@@ -20,7 +20,8 @@
             </a>
             <a v-if="row.item.status=='Approved'">
               <a v-show="user.user_type === 'Repair' || user.user_type === 'Expert'">
-                <b-btn class="btn-information" @click="uploadFile(row)">Upload repair files</b-btn>
+                <b-btn class="btn-information" @click="onPickFile">Upload repair files</b-btn>
+                <input type="file" style="display: none" ref="fileInput" @change="onFilePicked(row)" />
               </a>
               <a v-show="user.user_type === 'Repair'">
                 <b-btn class="btn-success" @click="endRepair(row)">End repair</b-btn>
