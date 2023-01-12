@@ -1,13 +1,13 @@
 ###
 POST http://localhost:8080/projectDAE/api/occurrences/1/documents
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYW5hQG1haWwucHQiLCJpYXQiOjE2NzM0ODA3MDgsImV4cCI6MTY3MzQ4NDMwOH0.XCKWCuZE7o4OiVP8fsIFCePgInbTUZ8NNi4HbOBo0w8
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYW5hQG1haWwucHQiLCJpYXQiOjE2NzM0ODM1MzUsImV4cCI6MTY3MzQ4NzEzNX0.n0ByZ3_JXDAg8X3p_G-1bs2AVu5SMBzuGlyCMX8wqaU
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
-Content-Disposition: form-data; name="file"; filename="lunar.png"
-< C:\Utilizadores\M0hamede\imagens
+Content-Disposition: form-data; name="file"; filename="guitar.png"
+< C:\Utilizadores\igors\imagens
 --boundary
 
 ###
-GET http://localhost:8080/academics/api/documents/download/1 HTTP/1.1
+GET http://localhost:8080/projectDAE/api/documents/download/1
 Content-Type: application/x-www-form-urlencoded
