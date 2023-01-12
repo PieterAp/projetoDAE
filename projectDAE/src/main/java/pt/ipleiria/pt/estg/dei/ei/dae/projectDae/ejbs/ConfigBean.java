@@ -62,8 +62,8 @@ public class ConfigBean {
         //For individual client
         List<Policy> policiesClientInd = policyBean.getPoliciesByUserId(clientInd.getUser_id());
         if (policiesClientInd.size() > 0) {
-            occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(0).getId(), "Danos no carro após acidente", "Submitted");
-            occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(0).getId(), "Bicicleta roubada", "Submitted");
+            occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(0).getId(), "Acidente causado após outra viatura embater na traseira");
+            occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(1).getId(), "Infiltração prolongada de água provoucou danos estruturais");
         } else {
             System.out.println("Client " + clientInd.getUser_id() + " does not have policies");
         }
@@ -71,8 +71,8 @@ public class ConfigBean {
         //For enterprise client
         List<Policy> policiesClientEmp = policyBean.getPoliciesByUserId(clientEmp.getUser_id());
         if (policiesClientEmp.size() > 0) {
-            Occurrence occurrence = occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(0).getId(), "Acidente de trabalho, viatura danificada", "Submitted");
-            occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(0).getId(), "Incendio no armazem", "Submitted");
+            Occurrence occurrence = occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(0).getId(), "Acidente de trabalho, viatura danificada");
+            occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(2).getId(), "Incendio no armazem");
             occurrence.setRepair_id(14);
             occurrence.setExpert_id(12);
             occurrenceBean.update(occurrence.getOccurrence_id(), occurrence.getStatus(), occurrence.getRepair_id(),occurrence.getExpert_id());

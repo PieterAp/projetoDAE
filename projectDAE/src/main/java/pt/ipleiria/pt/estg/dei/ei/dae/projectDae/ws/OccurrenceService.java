@@ -32,8 +32,7 @@ public class OccurrenceService {
         Occurrence createdOccurrence = occurrenceBean.create(
                 occurrenceDTO.getClient_id(),
                 occurrenceDTO.getPolicy_id(),
-                occurrenceDTO.getDescription(),
-                occurrenceDTO.getStatus());
+                occurrenceDTO.getDescription());
 
         if (createdOccurrence == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();

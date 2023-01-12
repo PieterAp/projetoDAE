@@ -46,7 +46,7 @@ public class OccurrenceBean {
                 .getResultList();
     }
 
-    public Occurrence create(long client_id, long policy_id, String description, String status) {
+    public Occurrence create(long client_id, long policy_id, String description) {
         Policy foundPolicy = policyBean.find(policy_id);
         Occurrence occurrence = new Occurrence(client_id, foundPolicy.getInsurance_id(), policy_id, description, "Submitted");
         entityManager.persist(occurrence);
