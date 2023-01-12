@@ -32,6 +32,16 @@ public class PolicyBean {
         return policies;
     }
 
+    public Policy find(long policy_id) {
+        Client client = ClientBuilder.newClient();
+        Policy policy = client.target(System.getenv("MOCKAPI_url")+"/policies/" + policy_id)
+                .request(MediaType.APPLICATION_JSON)
+                .get(Policy.class);
+
+        return policy;
+    }
+
+    /*
     public Policy getPoliciesById (long policy_id) {
         Client client = ClientBuilder.newClient();
         Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+"/policies?id=" + policy_id)
@@ -48,11 +58,13 @@ public class PolicyBean {
 
         return policies.get(0);
     }
+    */
 
     private PolicyDTO toDTO(Policy policy) {
         return new PolicyDTO(
                 policy.getId(),
                 policy.getUser_id(),
+                policy.getInsurance_id(),
                 policy.getDescription(),
                 policy.getType(),
                 policy.getCreatedAt()

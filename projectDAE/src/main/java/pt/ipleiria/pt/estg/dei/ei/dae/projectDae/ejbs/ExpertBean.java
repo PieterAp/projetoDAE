@@ -16,8 +16,8 @@ public class ExpertBean {
 
     @Inject
     private Hasher hasher;
-    public Expert create(long user_id, String name, String email, String password, long phone) {
-        Expert expert = new Expert(user_id,name, email, hasher.hash(password), phone);
+    public Expert create(String name, String email, String password, long phone) {
+        Expert expert = new Expert(name, email, hasher.hash(password), phone);
         entityManager.persist(expert);
         return expert;
     }

@@ -2,7 +2,7 @@
     <div id="app">
         <b-navbar toggleable="lg" class="navbar bg-dark navbar-dark" >
             <b-navbar-brand to="/">
-                projetoDAE
+                Home
             </b-navbar-brand>
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
             <b-collapse id="nav-collapse" is-nav>

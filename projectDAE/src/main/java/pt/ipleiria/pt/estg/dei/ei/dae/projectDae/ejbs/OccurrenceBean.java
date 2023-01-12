@@ -2,6 +2,7 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 import org.hibernate.Hibernate;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -19,10 +20,10 @@ public class OccurrenceBean {
     EntityManager entityManager;
 
     @EJB
-    private UserBean userBean;
+    PolicyBean policyBean;
 
     @EJB
-    private PolicyBean policyBean;
+    UserBean userBean;
 
     public List<Occurrence> getAllOccurrences() {
         return (List<Occurrence>) entityManager.createNamedQuery("getAllOccurrences").getResultList();
@@ -67,7 +68,7 @@ public class OccurrenceBean {
             expertName = userBean.find(occurrence.getExpert_id()).getName();
         }
         if (occurrence.getPolicy_id() != 0) {
-            policyDescription = policyBean.getPoliciesById(occurrence.getPolicy_id()).getDescription();
+            policyDescription = policyBean.find(occurrence.getPolicy_id()).getDescription();
         }
 
 
@@ -84,8 +85,9 @@ public class OccurrenceBean {
         return occurrenceDetails;
     }
 
-    public Occurrence create(long client_id, long insurance_id, long policy_id, String description, String status) {
-        Occurrence occurrence = new Occurrence(client_id, insurance_id, policy_id, description, status);
+    public Occurrence create(long client_id, long policy_id, String description) {
+        Policy policy = policyBean.find(policy_id);
+        Occurrence occurrence = new Occurrence(client_id, policy.getInsurance_id(), policy_id, description, "Submitted");
         entityManager.persist(occurrence);
         return occurrence;
 

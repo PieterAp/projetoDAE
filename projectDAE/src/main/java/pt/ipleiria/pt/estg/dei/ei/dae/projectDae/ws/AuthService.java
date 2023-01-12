@@ -43,9 +43,7 @@ public class AuthService {
     @Authenticated
     @Path("/user")
     public Response getAuthenticatedUser() {
-        System.out.println("@@");
         var email = securityContext.getUserPrincipal().getName();
-        System.out.println("@@"+email);
         var user = userBean.findOrFail(email);
 
         return Response.ok(UserDTO.from(user)).build();

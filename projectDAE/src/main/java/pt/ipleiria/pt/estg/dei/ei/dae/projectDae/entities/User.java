@@ -25,7 +25,7 @@ import java.util.List;
 )
 public class User implements Serializable {
     @Id
-    //@GeneratedValue
+    @GeneratedValue
     private long user_id;
     @NotNull
     private String name;
@@ -43,8 +43,7 @@ public class User implements Serializable {
         this.documents = new ArrayList<>();
     }
 
-    public User(long user_id, String name, String email, String password, long phone) {
-        this.user_id = user_id;
+    public User(String name, String email, String password, long phone) {
         this.name = name;
         this.email = email;
         this.password = password;

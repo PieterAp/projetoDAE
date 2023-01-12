@@ -11,7 +11,7 @@ public class Repair extends User implements Serializable  {
 
     }
 
-    public Repair(long user_id,String name, String email, String password, long phone) {
-        super(user_id, name, email, password, phone);
+    public Repair(String name, String email, String password, long phone) {
+        super(name, email, password, phone);
     }
 }
