@@ -1,13 +1,17 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
+import org.hibernate.Hibernate;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import java.util.Objects;
 
 @Stateless
 public class OccurrenceBean {
@@ -17,6 +21,9 @@ public class OccurrenceBean {
 
     @EJB
     PolicyBean policyBean;
+
+    @EJB
+    UserBean userBean;
 
     public List<Occurrence> getAllOccurrences() {
         return (List<Occurrence>) entityManager.createNamedQuery("getAllOccurrences").getResultList();
@@ -46,9 +53,41 @@ public class OccurrenceBean {
                 .getResultList();
     }
 
+    public Object getOccurrenceDetails(long occurrenceID) {
+        Occurrence occurrence = find(occurrenceID);
+        String repairName = "";
+        String expertName = "";
+        String policyDescription = "";
+
+        String clientName = userBean.find(occurrence.getClient_id()).getName();
+        String insuranceName = userBean.find(occurrence.getInsurance_id()).getName();
+        if (occurrence.getRepair_id() != 0) {
+            repairName = userBean.find(occurrence.getRepair_id()).getName();
+        }
+        if (occurrence.getExpert_id() != 0) {
+            expertName = userBean.find(occurrence.getExpert_id()).getName();
+        }
+        if (occurrence.getPolicy_id() != 0) {
+            policyDescription = policyBean.find(occurrence.getPolicy_id()).getDescription();
+        }
+
+
+        JsonObject occurrenceDetails = Json.createObjectBuilder()
+                .add("status", occurrence.getStatus())
+                .add("description", occurrence.getDescription())
+                .add("clientName", clientName)
+                .add("insuranceName", insuranceName)
+                .add("repairName", repairName)
+                .add("expertName", expertName)
+                .add("policyDescription", policyDescription)
+                .build();
+
+        return occurrenceDetails;
+    }
+
     public Occurrence create(long client_id, long policy_id, String description) {
-        Policy foundPolicy = policyBean.find(policy_id);
-        Occurrence occurrence = new Occurrence(client_id, foundPolicy.getInsurance_id(), policy_id, description, "Submitted");
+        Policy policy = policyBean.find(policy_id);
+        Occurrence occurrence = new Occurrence(client_id, policy.getInsurance_id(), policy_id, description, "Submitted");
         entityManager.persist(occurrence);
         return occurrence;
 
@@ -70,6 +109,13 @@ public class OccurrenceBean {
 
     public Occurrence find(long occurrenceid) {
         return entityManager.find(Occurrence.class, occurrenceid);
+    }
+
+    public Occurrence findOrFail(String username) {
+        var occurrence = entityManager.getReference(Occurrence.class, username);
+        Hibernate.initialize(occurrence);
+
+        return occurrence;
     }
 
 }

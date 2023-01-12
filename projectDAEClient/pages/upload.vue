@@ -7,7 +7,7 @@
         <div class="mt-3">
             Selected file: {{ file? file.name : '' }}
         </div>
-        <nuxt-link class="btn btn-link" :to="`/students/${this.username}`">
+        <nuxt-link class="btn btn-link" :to="`/users/${this.username}`">
             Back
         </nuxt-link>
         <b-button type="submit" :disabled="!hasFile">Upload</b-button>
@@ -19,7 +19,7 @@ export default {
     auth: false,
     data() {
         return {
-            username: this.$auth.user.username,
+            id: this.$auth.user.id,
             file: null
         }
     },
@@ -29,7 +29,7 @@ export default {
         },
         formData() {
             let formData = new FormData()
-            formData.append('username', this.$auth.user.username)
+            formData.append('id', this.$auth.user.user_id)
             if (this.file) {
                 formData.append('file', this.file)
             }
