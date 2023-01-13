@@ -28,7 +28,6 @@ public class PolicyBean {
 
     public List<Policy> getPoliciesByUserNif (long nif) {
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
-        System.out.println("HERE IS WHERE IT FUCKS UP #1");
         Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+ resource +"?nif=" + nif)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy[].class);
@@ -38,7 +37,6 @@ public class PolicyBean {
 
     public List<Policy> getPoliciesByUserNipc (long mipc) {
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
-        System.out.println("HERE IS WHERE IT FUCKS UP #2");
         Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+ resource +"?mipc=" + mipc)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy[].class);
