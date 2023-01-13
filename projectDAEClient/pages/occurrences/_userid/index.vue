@@ -25,7 +25,7 @@
       </b-form-group>
       <hr class="hr"/>
       <b-form-group
-        v-if="occurrence.status == 'Approved' || occurrence.status != 'Closed' || (occurrence.status == 'Submitted' && this.$auth.user.user_type === 'Client')">
+        v-if="occurrence.status == 'Approved' || (occurrence.status == 'Submitted' && this.$auth.user.user_type === 'Client')">
         <h4>Upload File:</h4>
         <form @submit.prevent="upload(row)" ref="clear">
           <!-- Styled -->
