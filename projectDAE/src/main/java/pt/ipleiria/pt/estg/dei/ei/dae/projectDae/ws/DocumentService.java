@@ -24,7 +24,7 @@ public class DocumentService {
     private SecurityContext securityContext;
 
     @GET
-    @Path("download/{id}")
+    @Path("{id}/download")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response download(@PathParam("id") Long id) {
         var document = documentBean.findOrFail(id);

@@ -48,7 +48,7 @@ public class OccurrenceService {
                 occurrenceDTO.getClient_id(),
                 occurrenceDTO.getPolicy_id(),
                 occurrenceDTO.getDescription()
-                );
+        );
 
         if (createdOccurrence == null) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -97,18 +97,18 @@ public class OccurrenceService {
             String filepath = dirpath + File.separator + filename;
             writeFile(bytes, filepath);
 
-            var document = documentBean.create(filepath, filename, occurrenceid, Long.valueOf(userID.getBodyAsString()) );
+            var document = documentBean.create(filepath, filename, occurrenceid, Long.valueOf(userID.getBodyAsString()));
+
             documents.add(document);
         }
 
-        return Response.ok(DocumentDTO.from(documents)).build();
+        return Response.ok().build();
     }
 
     @GET
     @Path("{occurrenceid}/documents")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getDocuments(@PathParam("occurrenceid") long occurrenceid) {
-
         var documents = documentBean.getOccurrenceDocuments(occurrenceid);
         return Response.ok(DocumentDTO.from(documents)).build();
     }
