@@ -39,6 +39,12 @@
           disabled
         ></b-form-input>
       </b-form-group>
+      <b-form-group label="Insurance:">
+        <b-form-input
+          :value="user.insuranceName"
+          disabled
+        ></b-form-input>
+      </b-form-group>
       <h4>Policies:</h4>
       <b-table v-if="policies.length"
                striped over :items="policies" :fields="policiesFields">

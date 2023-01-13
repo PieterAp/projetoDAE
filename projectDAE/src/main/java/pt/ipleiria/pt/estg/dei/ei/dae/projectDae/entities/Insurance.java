@@ -2,6 +2,8 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @DiscriminatorValue("Insurance")
@@ -23,16 +25,27 @@ public class Insurance extends User implements Serializable {
     private String address;
     private long share_capital;
 
-    public Insurance() {
+    @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
+    private List<Expert> experts;
 
+    public Insurance() {
+        this.experts = new ArrayList<>();
     }
 
     public Insurance(String name, String email, String password, long phone, String address, long share_capital) {
         super(name, email, password, phone);
         this.address = address;
         this.share_capital = share_capital;
+        this.experts = new ArrayList<>();
     }
 
+    public List<Expert> getExperts() {
+        return experts;
+    }
+
+    public void setExperts(List<Expert> experts) {
+        this.experts = experts;
+    }
 
     public String getAddress() {
         return address;

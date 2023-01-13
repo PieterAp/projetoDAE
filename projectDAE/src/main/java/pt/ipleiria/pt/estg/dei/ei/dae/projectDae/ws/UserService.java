@@ -2,14 +2,8 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ws;
 
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.OccurrenceDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.UserDTO;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.ClientBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.InsuranceBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.OccurrenceBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.UserBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Client;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.*;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.*;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
@@ -25,6 +19,9 @@ import java.util.stream.Collectors;
 public class UserService {
     @EJB
     private UserBean userBean;
+
+    @EJB
+    private ExpertBean expertBean;
 
     @EJB
     private ClientBean clientBean;
@@ -50,6 +47,8 @@ public class UserService {
             return Response.ok(toClientDTO(foundUser)).build();
         } else if (foundUser.getUserType().equals("Insurance")) {
             return Response.ok(toInsuranceDTO(foundUser)).build();
+        } else if (foundUser.getUserType().equals("Expert")) {
+            return Response.ok(toExpertDTO(foundUser)).build();
         }
 
         return Response.ok(toDTO(foundUser)).build();
@@ -115,6 +114,20 @@ public class UserService {
                 insurance.getAddress(),
                 insurance.getShare_capital(),
                 user.getPhone()
+        );
+    }
+
+    private UserDTO toExpertDTO(User user) {
+        Expert expert = expertBean.findUserId(user.getUser_id());
+
+        return new UserDTO(
+                user.getUser_id(),
+                user.getName(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getUserType(),
+                user.getPhone(),
+                expert.getInsurance().getName()
         );
     }
 
