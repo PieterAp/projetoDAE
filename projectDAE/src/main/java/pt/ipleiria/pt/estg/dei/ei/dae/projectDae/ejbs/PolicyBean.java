@@ -1,6 +1,5 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
-
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.PolicyDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 
@@ -15,9 +14,9 @@ import java.util.stream.Collectors;
 @Stateless
 public class PolicyBean {
 
-    public List<Policy> getPoliciesByUserId (long user_id) {
+    public List<Policy> getPoliciesByUserId(long user_id) {
         Client client = ClientBuilder.newClient();
-        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+"/policies?user_id=" + user_id)
+        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url") + "/policies?user_id=" + user_id)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy[].class);
 
@@ -34,31 +33,12 @@ public class PolicyBean {
 
     public Policy find(long policy_id) {
         Client client = ClientBuilder.newClient();
-        Policy policy = client.target(System.getenv("MOCKAPI_url")+"/policies/" + policy_id)
+        Policy policy = client.target(System.getenv("MOCKAPI_url") + "/policies/" + policy_id)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy.class);
 
         return policy;
     }
-
-    /*
-    public Policy getPoliciesById (long policy_id) {
-        Client client = ClientBuilder.newClient();
-        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+"/policies?id=" + policy_id)
-                .request(MediaType.APPLICATION_JSON)
-                .get(Policy[].class);
-
-        //filter array to *strictly* only get policies from user id
-        List<Policy> policies = new LinkedList<>();
-        for (Policy policy : responsePolicies) {
-            if (policy.getId() == policy_id) {
-                policies.add(policy);
-            }
-        }
-
-        return policies.get(0);
-    }
-    */
 
     private PolicyDTO toDTO(Policy policy) {
         return new PolicyDTO(

@@ -1,9 +1,6 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities;
 
-import com.sun.istack.Nullable;
-
 import javax.persistence.*;
-import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +33,14 @@ import java.util.List;
                 query = "SELECT o " +
                         "FROM Occurrence o " +
                         "WHERE o.expert_id = :expert_id OR o.expert_id = 0"
+        ), @NamedQuery(
+                name = "getOccurrencesByPolicy",
+                query = "SELECT o " +
+                        "FROM Occurrence o " +
+                        "WHERE o.policy_id = :policy_id "
         )}
 )
+
 public class Occurrence implements Serializable {
 
     @Id
@@ -58,14 +61,9 @@ public class Occurrence implements Serializable {
 
     private String status;
 
-
-    @OneToMany(mappedBy = "occurrence")
+    @OneToMany(mappedBy = "occurrence", fetch = FetchType.EAGER)
     private List<Document> documents;
 
-    /*
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "occurrence", cascade = CascadeType.REMOVE)
-    List<Repair> repairs;
-    */
 
     public Occurrence() {
         this.documents = new ArrayList<>();
@@ -149,7 +147,7 @@ public class Occurrence implements Serializable {
     }
 
     public void addDocument(Document document) {
-        if (! this.documents.contains(document)) {
+        if (!this.documents.contains(document)) {
             this.documents.add(document);
         }
     }

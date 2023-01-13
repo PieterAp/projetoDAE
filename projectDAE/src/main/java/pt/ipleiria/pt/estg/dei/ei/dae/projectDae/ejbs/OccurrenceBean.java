@@ -53,6 +53,15 @@ public class OccurrenceBean {
                 .getResultList();
     }
 
+    public List<Occurrence> getOccurrencesByPolicy(long policy_id) {
+        List<Occurrence> occurrences = entityManager.createNamedQuery("getOccurrencesByPolicy")
+                .setParameter("policy_id", policy_id)
+                .getResultList();
+
+        Hibernate.initialize(occurrences);
+        return occurrences;
+    }
+
     public Object getOccurrenceDetails(long occurrenceID) {
         Occurrence occurrence = find(occurrenceID);
         String repairName = "";

@@ -17,6 +17,11 @@
               Occurrences
             </nuxt-link>
           </li>
+          <li class="nav-item" v-show="this.$auth.user?.user_type === 'Client'">
+            <nuxt-link class="nav-link" to="/policies">
+              Policies
+            </nuxt-link>
+          </li>
         </b-navbar-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
