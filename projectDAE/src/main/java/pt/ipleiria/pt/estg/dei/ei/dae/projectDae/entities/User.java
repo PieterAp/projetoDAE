@@ -100,7 +100,7 @@ public class User implements Serializable {
     }
 
     public void addDocument(Document document) {
-        if (! this.documents.contains(document)) {
+        if (!this.documents.contains(document)) {
             this.documents.add(document);
         }
     }

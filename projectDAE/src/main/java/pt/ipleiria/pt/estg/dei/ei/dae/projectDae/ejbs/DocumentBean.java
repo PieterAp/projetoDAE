@@ -2,6 +2,7 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 import org.hibernate.Hibernate;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Document;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -11,7 +12,9 @@ import java.util.List;
 
 @Stateless
 public class DocumentBean {
-    
+    @PersistenceContext
+    EntityManager entityManager;
+
     @EJB
     private OccurrenceBean occurrenceBean;
 
@@ -20,11 +23,11 @@ public class DocumentBean {
 
     @PersistenceContext
     private EntityManager em;
-    
+
     public Document create(String filepath, String filename, Long occurrenceID, Long userID) {
         var occurrence = occurrenceBean.find(occurrenceID);
-
         var user = userBean.find(userID);
+        Hibernate.initialize(entityManager.getReference(User.class, user.getUser_id()));
         var document = new Document(filepath, filename, occurrence, user);
 
         em.persist(document);
@@ -42,8 +45,8 @@ public class DocumentBean {
         Hibernate.initialize(document);
         return document;
     }
-    
-    public List<Document> getOccurrenceDocuments(Long id){
+
+    public List<Document> getOccurrenceDocuments(Long id) {
         return em.createNamedQuery("getOccurrenceDocuments", Document.class).setParameter("id", id).getResultList();
     }
 

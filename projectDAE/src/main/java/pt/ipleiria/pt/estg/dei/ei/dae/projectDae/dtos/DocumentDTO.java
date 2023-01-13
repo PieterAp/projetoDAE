@@ -1,27 +1,35 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos;
 
-
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Document;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DocumentDTO implements Serializable {
 
-    @NotNull
     private Long id;
 
-    @NotNull
     private String filename;
+
+    private String owner;
+
 
     public DocumentDTO() {
     }
 
-    public DocumentDTO(@NotNull Long id, @NotNull String filename) {
+    public DocumentDTO(Long id, String filename, String owner) {
+        this.owner = owner;
         this.id = id;
         this.filename = filename;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 
     public Long getId() {
@@ -39,12 +47,13 @@ public class DocumentDTO implements Serializable {
     public void setFilename(String filename) {
         this.filename = filename;
     }
-    
+
     public static DocumentDTO from(Document document) {
-        return new DocumentDTO(document.getId(), document.getFilename());
+        return new DocumentDTO(document.getId(), document.getFilename(), document.getUser().getName() + " [" + document.getUser().getUserType() + "]");
     }
 
     public static List<DocumentDTO> from(List<Document> documents) {
         return documents.stream().map(DocumentDTO::from).collect(Collectors.toList());
     }
+
 }
