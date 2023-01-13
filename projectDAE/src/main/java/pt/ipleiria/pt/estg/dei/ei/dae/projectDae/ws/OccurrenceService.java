@@ -56,7 +56,6 @@ public class OccurrenceService {
         return Response.status(Response.Status.CREATED).entity(toDTO(createdOccurrence)).build();
     }
 
-    //todo: WARNING, ONLY UPDATES THE STATUS!! ↓ ↓ ↓ ↓
     @PUT
     @Path("/{occurrenceid}")
     public Response updateOccurrence(@PathParam("occurrenceid") long occurrenceid, OccurrenceDTO occurrenceDTO) {

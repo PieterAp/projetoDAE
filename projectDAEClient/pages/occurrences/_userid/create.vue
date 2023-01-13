@@ -15,14 +15,12 @@
                         </template>
                     </b-form-select>
                 </b-form-group>
-
                 <b-form-group label="Insurance company that will be handling this occurrance:">
                     <b-form-input
                     v-model="insuranceCompName"
                     disabled
                     ></b-form-input>
                 </b-form-group>
-
                 <b-form-group label="Description:">
                     <b-form-textarea
                     :state="isDescriptionValid"
@@ -37,7 +35,10 @@
                         Min 10 caracteres, max 255 caracteres
                     </div>
                 </b-form-group>
-
+                <div>
+                    After the insurance company expert validates this occurrance request you'll be able to choose a repair entity.
+                </div>
+                <br>
                 <p v-show="errorMsg" class="text-danger">{{errorMsg}}</p>
                 <div class="text-center">
                     <nuxt-link to="/">Return</nuxt-link>

@@ -48,12 +48,12 @@ public class ConfigBean {
         Client clientEmp = clientBean.findByNipc(555479250);
         clientBean.create( "Marco", "marco@mail.pt", "123", 925425365, "Braga", 0, 508461022);
 
-        Insurance insurance = insuranceBean.create("Generali", "generali@mail.pt", "123", 967452156, "Lisboa", 10000);
+        Insurance insuranceGen = insuranceBean.create("Generali", "generali@mail.pt", "123", 967452156, "Lisboa", 10000);
         insuranceBean.create("Fidelidade", "fidelidade@mail.pt", "123", 974521587, "Sintra", 10000);
-        insuranceBean.create("okteleseguros", "okteleseguros@mail.pt", "123", 952151425, "Porto", 10000);
+        Insurance insuranceTeleSeg = insuranceBean.create("okteleseguros", "okteleseguros@mail.pt", "123", 952151425, "Porto", 10000);
 
-        expertBean.create("Peritagem André S.A.", "expertAndre@mail.pt", "123", 985214526, insurance);
-        expertBean.create("Peritagem Sousa e Filhos", "expertSousa@mail.pt", "123", 952528745, insurance);
+        expertBean.create("André", "andre@mail.pt", "123", 985214526, insuranceTeleSeg);
+        expertBean.create("Sousa", "sousa@mail.pt", "123", 952528745, insuranceGen);
 
         repairBean.create("Leiria Auto", "repairLeiria@mail.pt", "123", 958536956);
         repairBean.create("MyAuto Mecânica Multimarcas Lisboa", "repairLisboa@mail.pt", "123", 985214257);
