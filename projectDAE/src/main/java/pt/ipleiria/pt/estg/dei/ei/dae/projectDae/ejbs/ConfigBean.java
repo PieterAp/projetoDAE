@@ -63,7 +63,7 @@ public class ConfigBean {
         List<Policy> policiesClientInd = policyBean.getPoliciesByUserNif(clientInd.getNif());
         if (policiesClientInd.size() > 0) {
             occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(0).getId(), "Acidente causado após outra viatura embater na traseira");
-            occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(1).getId(), "Infiltração prolongada de água provoucou danos estruturais");
+            occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(1).getId(), "Infiltração prolongada de água provocou danos estruturais");
         } else {
             System.out.println("Client " + clientInd.getUser_id() + " does not have policies");
         }
@@ -74,7 +74,7 @@ public class ConfigBean {
             Occurrence occurrence = occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(0).getId(), "Acidente de trabalho, viatura danificada");
             occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(2).getId(), "Incêndio no armazem");
             occurrence.setRepair_id(9);
-            occurrence.setExpert_id(10);
+            occurrence.setExpert_id(11);
             occurrenceBean.update(occurrence.getOccurrence_id(), occurrence.getStatus(), occurrence.getRepair_id(),occurrence.getExpert_id());
         } else {
             System.out.println("Client " + clientEmp.getUser_id() + " does not have policies");
