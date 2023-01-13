@@ -13,10 +13,6 @@
                 <b-btn class="btn-success" @click="approveOccurrence(row)">Approve</b-btn>
                 <b-btn class="btn-danger" @click="disapproveOccurrence(row)">Disapprove</b-btn>
               </a>
-              <a v-show="user.user_type === 'Insurance'">
-                <b-btn class="btn-success" @click="acceptOccurrence(row)">Accept</b-btn>
-                <b-btn class="btn-danger" @click="denyOccurrence(row)">Deny</b-btn>
-              </a>
             </div>
           </template>
         </b-table>
