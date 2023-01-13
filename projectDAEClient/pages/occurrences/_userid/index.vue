@@ -68,7 +68,7 @@ export default {
     },
     formData() {
       let formData = new FormData()
-      formData.append('id', this.$auth.user.user_id)
+      formData.append('client_id', this.$auth.user.user_id)
       if (this.file) {
         formData.append('file', this.file)
       }

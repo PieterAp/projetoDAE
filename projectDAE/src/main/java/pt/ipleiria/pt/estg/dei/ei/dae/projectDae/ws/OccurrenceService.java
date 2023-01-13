@@ -57,7 +57,9 @@ public class OccurrenceService {
                 descriptionID.getBodyAsString()
         );
 
-        upload(createdOccurrence.getOccurrence_id(), input);
+        if (uploadForm.get("file") != null) {
+            upload(createdOccurrence.getOccurrence_id(), input);
+        }
 
         return Response.status(Response.Status.CREATED).entity(toDTO(createdOccurrence)).build();
     }
