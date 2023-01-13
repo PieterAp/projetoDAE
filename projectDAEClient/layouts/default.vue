@@ -8,13 +8,13 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <li class="nav-item">
-            <nuxt-link class="nav-link" to="/users">
-              Users
-            </nuxt-link>
-          </li>
-          <li class="nav-item">
             <nuxt-link class="nav-link" to="/occurrences">
               Occurrences
+            </nuxt-link>
+          </li>
+          <li class="nav-item" v-show="this.$auth.user?.user_type === 'Client'">
+            <nuxt-link class="nav-link" to="/policies">
+              Policies
             </nuxt-link>
           </li>
         </b-navbar-nav>

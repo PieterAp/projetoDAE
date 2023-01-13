@@ -1,6 +1,7 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos;
 
 import org.hibernate.Hibernate;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 
 import javax.persistence.GeneratedValue;
@@ -28,6 +29,8 @@ public class UserDTO {
 
     private long share_capital;
     private long phone;
+
+    String insuranceName;
 
     public UserDTO() {
     }
@@ -64,6 +67,16 @@ public class UserDTO {
         this.phone = phone;
     }
 
+    public UserDTO(long user_id, String name, String email, String password, String user_type, long phone, String insuranceName) {
+        this.user_id = user_id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.user_type = user_type;
+        this.phone = phone;
+        this.insuranceName = insuranceName;
+    }
+
     public static UserDTO from(User user) {
         return new UserDTO(
                 user.getUser_id(),
@@ -73,6 +86,14 @@ public class UserDTO {
                 Hibernate.getClass(user).getSimpleName(),
                 user.getPhone()
         );
+    }
+
+    public String getInsuranceName() {
+        return insuranceName;
+    }
+
+    public void setInsuranceName(String insuranceName) {
+        this.insuranceName = insuranceName;
     }
 
     public String getAddress() {

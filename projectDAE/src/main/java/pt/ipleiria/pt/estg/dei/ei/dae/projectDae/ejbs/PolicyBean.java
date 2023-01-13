@@ -1,6 +1,5 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
-
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.PolicyDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Client;
