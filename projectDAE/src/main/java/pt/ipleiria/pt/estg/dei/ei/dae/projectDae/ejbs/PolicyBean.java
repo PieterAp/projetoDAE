@@ -35,9 +35,9 @@ public class PolicyBean {
         return Arrays.asList(responsePolicies);
     }
 
-    public List<Policy> getPoliciesByUserNipc (long mipc) {
+    public List<Policy> getPoliciesByUserNipc (long nipc) {
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
-        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+ resource +"?mipc=" + mipc)
+        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+ resource +"?nipc=" + nipc)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy[].class);
 

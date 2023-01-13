@@ -37,7 +37,7 @@ import java.util.List;
                 name = "getOccurrencesByPolicy",
                 query = "SELECT o " +
                         "FROM Occurrence o " +
-                        "WHERE o.policy_id = :policy_id "
+                        "WHERE o.policy_id = :policy_id"
         )}
 )
 
