@@ -82,6 +82,7 @@ public class OccurrenceBean {
 
 
         JsonObject occurrenceDetails = Json.createObjectBuilder()
+                .add("occurrence_id", occurrence.getOccurrence_id())
                 .add("status", occurrence.getStatus())
                 .add("description", occurrence.getDescription())
                 .add("clientName", clientName)

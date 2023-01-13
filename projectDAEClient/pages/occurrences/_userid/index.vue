@@ -14,32 +14,25 @@
       <b-form-group label="Insurance:">
         <b-form-input :value="occurrence.insuranceName" disabled></b-form-input>
       </b-form-group>
-      <b-form-group label="Policy:" v-show="occurrence.policyDescription">
+      <b-form-group label="Policy:" v-if="occurrence.policyDescription">
         <b-form-input :value="occurrence.policyDescription" disabled></b-form-input>
       </b-form-group>
-      <b-form-group label="Expert:" v-show="occurrence.repairName">
+      <b-form-group label="Expert:" v-if="occurrence.repairName">
         <b-form-input :value="occurrence.repairName" disabled></b-form-input>
       </b-form-group>
-      <b-form-group label="Repair:" v-show="occurrence.expertName">
+      <b-form-group label="Repair:" v-if="occurrence.expertName">
         <b-form-input :value="occurrence.expertName" disabled></b-form-input>
       </b-form-group>
-
-      <hr class="hr" />
-
+      <hr class="hr"/>
       <b-form-group
-        v-show="occurrence.status == 'Approved' || occurrence.status == 'Closed' || (occurrence.status == 'Submitted' && this.$auth.user.user_type === 'Client')">
+        v-if="occurrence.status == 'Approved' || occurrence.status != 'Closed' || (occurrence.status == 'Submitted' && this.$auth.user.user_type === 'Client')">
         <h4>Upload File:</h4>
-
         <form @submit.prevent="upload(row)" ref="clear">
           <!-- Styled -->
-          <b-form-file v-model="file" />
+          <b-form-file v-model="file"/>
           <b-button :disabled="!hasFile" type="submit">Upload</b-button>
         </form>
-
       </b-form-group>
-
-
-
       <h4>Documents:</h4>
       <b-table v-if="documents.length" striped over :items="documents" :fields="documentsFields">
         <template v-slot:cell(options)="row">
@@ -49,6 +42,9 @@
       </b-table>
       <p v-else>No Documents for this occurence.</p>
       <nuxt-link to="/occurrences">Back</nuxt-link>
+      <a v-if="this.$auth.user.user_type === 'Repair' && occurrence.status != 'Closed'">
+        <b-btn class="btn-success" @click="endRepair(occurrence.occurrence_id)">End repair</b-btn>
+      </a>
     </b-container>
   </div>
 </template>
@@ -108,7 +104,7 @@ export default {
 
     },
     download(row) {
-      this.$axios.$get(`/api/documents/${row.item.id}/download`, { responseType: 'arraybuffer' })
+      this.$axios.$get(`/api/documents/${row.item.id}/download`, {responseType: 'arraybuffer'})
         .then((file) => {
           const url = window.URL.createObjectURL(new Blob([file]))
           const link = document.createElement('a')
@@ -117,7 +113,16 @@ export default {
           document.body.appendChild(link)
           link.click()
         })
+    },
+    endRepair(occurrenceID) {
+      this.$axios.$put(`/api/occurrences/${occurrenceID}`, {
+        status: "Closed"
+      }).then(() => {
+        this.$toast.success('Occurrence as been marked as closed!').goAway(3000)
+        this.$router.push('/occurrences')
+      })
     }
+
   }
 }
 </script>
