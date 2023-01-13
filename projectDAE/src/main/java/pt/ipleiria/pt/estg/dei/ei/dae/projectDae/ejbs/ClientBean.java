@@ -39,4 +39,20 @@ public class ClientBean {
                 .setParameter("userNipc",nipc)
                 .getSingleResult();
     }
+
+    public boolean isIndividual(long userID) {
+        Client client = findUserId(userID);
+        if (client.getNif() == 0) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isCompany(long userID) {
+        Client client = findUserId(userID);
+        if (client.getNipc() == 0) {
+            return false;
+        }
+        return true;
+    }
 }

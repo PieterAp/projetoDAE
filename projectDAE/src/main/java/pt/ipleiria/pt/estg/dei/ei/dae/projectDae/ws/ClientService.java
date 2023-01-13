@@ -38,7 +38,8 @@ public class ClientService {
     private PolicyDTO toDTOpolicy(Policy policy) {
         return new PolicyDTO(
                 policy.getId(),
-                policy.getUser_id(),
+                policy.getNif(),
+                policy.getNipc(),
                 policy.getInsurance_id(),
                 policy.getDescription(),
                 policy.getType(),
