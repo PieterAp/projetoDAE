@@ -26,25 +26,25 @@ public class PolicyBean {
 
     private String resource = "/policiesv2/";
 
-    public List<Policy> getPoliciesByUserNif (long nif) {
+    public List<Policy> getPoliciesByUserNif(long nif) {
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
-        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+ resource +"?nif=" + nif)
+        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url") + resource + "?nif=" + nif)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy[].class);
 
         return Arrays.asList(responsePolicies);
     }
 
-    public List<Policy> getPoliciesByUserNipc (long nipc) {
+    public List<Policy> getPoliciesByUserNipc(long nipc) {
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
-        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url")+ resource +"?nipc=" + nipc)
+        Policy[] responsePolicies = client.target(System.getenv("MOCKAPI_url") + resource + "?nipc=" + nipc)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy[].class);
 
         return Arrays.asList(responsePolicies);
     }
 
-    public List<Policy> getPoliciesByUserId (long user_id) {
+    public List<Policy> getPoliciesByUserId(long user_id) {
         Client foundClient = entityManager.find(Client.class, user_id);
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
         List<Policy> policies = new LinkedList<>();
@@ -59,7 +59,7 @@ public class PolicyBean {
 
     public Policy find(long policy_id) {
         javax.ws.rs.client.Client client = ClientBuilder.newClient();
-        Policy policy = client.target(System.getenv("MOCKAPI_url")+ resource + policy_id)
+        Policy policy = client.target(System.getenv("MOCKAPI_url") + resource + policy_id)
                 .request(MediaType.APPLICATION_JSON)
                 .get(Policy.class);
 
