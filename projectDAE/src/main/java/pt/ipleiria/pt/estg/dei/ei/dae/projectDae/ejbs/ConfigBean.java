@@ -1,6 +1,7 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Client;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Policy;
 
@@ -37,22 +38,22 @@ public class ConfigBean {
 
         //region users
         //Individual clients
-        clientBean.create( "Mariana", "mariana@mail.pt", "123", 962547452, "Leiria", 45215786, 0);
+        clientBean.create("Mariana", "mariana@mail.pt", "123", 962547452, "Leiria", 45215786, 0);
         Client clientInd = clientBean.findByNif(45215786);
         clientBean.create("Margarida", "margarida@mail.pt", "123", 985234568, "Santarém", 265417929, 0);
         clientBean.create("Inês", "ines@mail.pt", "123", 964125475, "Portimão", 456456464, 0);
 
         //Enterprise client
-        clientBean.create( "Joaquim", "joaquim@mail.pt", "123", 914257865, "Lisboa", 0, 1618198192);
+        clientBean.create("Joaquim", "joaquim@mail.pt", "123", 914257865, "Lisboa", 0, 1618198192);
         Client clientEmp = clientBean.findByNipc(1618198192);
-        clientBean.create( "Marco", "marco@mail.pt", "123", 925425365, "Braga", 0, 254125884);
+        clientBean.create("Marco", "marco@mail.pt", "123", 925425365, "Braga", 0, 254125884);
 
-        insuranceBean.create("Generali", "generali@mail.pt", "123", 967452156, "Lisboa", 10000);
+        Insurance insurance = insuranceBean.create("Generali", "generali@mail.pt", "123", 967452156, "Lisboa", 10000);
         insuranceBean.create("Fidelidade", "fidelidade@mail.pt", "123", 974521587, "Sintra", 10000);
         insuranceBean.create("okteleseguros", "okteleseguros@mail.pt", "123", 952151425, "Porto", 10000);
 
-        expertBean.create("Peritagem André S.A.", "expertAndre@mail.pt", "123", 985214526);
-        expertBean.create("Peritagem Sousa e Filhos", "expertSousa@mail.pt", "123", 952528745);
+        expertBean.create("Peritagem André S.A.", "expertAndre@mail.pt", "123", 985214526, insurance);
+        expertBean.create("Peritagem Sousa e Filhos", "expertSousa@mail.pt", "123", 952528745, insurance);
 
         repairBean.create("Leiria Auto", "repairLeiria@mail.pt", "123", 958536956);
         repairBean.create("MyAuto Mecânica Multimarcas Lisboa", "repairLisboa@mail.pt", "123", 985214257);
@@ -75,7 +76,7 @@ public class ConfigBean {
             occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(2).getId(), "Incêndio no armazem");
             occurrence.setRepair_id(9);
             occurrence.setExpert_id(10);
-            occurrenceBean.update(occurrence.getOccurrence_id(), occurrence.getStatus(), occurrence.getRepair_id(),occurrence.getExpert_id());
+            occurrenceBean.update(occurrence.getOccurrence_id(), occurrence.getStatus(), occurrence.getRepair_id(), occurrence.getExpert_id());
         } else {
             System.out.println("Client " + clientEmp.getUser_id() + " does not have policies");
         }
