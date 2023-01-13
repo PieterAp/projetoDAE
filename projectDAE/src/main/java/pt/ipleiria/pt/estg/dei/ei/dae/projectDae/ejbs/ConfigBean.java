@@ -37,15 +37,15 @@ public class ConfigBean {
 
         //region users
         //Individual clients
-        clientBean.create( "Mariana", "mariana@mail.pt", "123", 962547452, "Leiria", 45215786, 0);
-        Client clientInd = clientBean.findByNif(45215786);
-        clientBean.create("Margarida", "margarida@mail.pt", "123", 985234568, "Santarém", 265417929, 0);
-        clientBean.create("Inês", "ines@mail.pt", "123", 964125475, "Portimão", 456456464, 0);
+        clientBean.create( "Mariana", "mariana@mail.pt", "123", 962547452, "Leiria", 244930473, 0);
+        Client clientInd = clientBean.findByNif(244930473);
+        clientBean.create("Margarida", "margarida@mail.pt", "123", 985234568, "Santarém", 289437059, 0);
+        clientBean.create("Inês", "ines@mail.pt", "123", 964125475, "Portimão", 275991237, 0);
 
         //Enterprise client
-        clientBean.create( "Joaquim", "joaquim@mail.pt", "123", 914257865, "Lisboa", 0, 1618198192);
-        Client clientEmp = clientBean.findByNipc(1618198192);
-        clientBean.create( "Marco", "marco@mail.pt", "123", 925425365, "Braga", 0, 254125884);
+        clientBean.create( "Joaquim", "joaquim@mail.pt", "123", 914257865, "Lisboa", 0, 555479250);
+        Client clientEmp = clientBean.findByNipc(555479250);
+        clientBean.create( "Marco", "marco@mail.pt", "123", 925425365, "Braga", 0, 508461022);
 
         insuranceBean.create("Generali", "generali@mail.pt", "123", 967452156, "Lisboa", 10000);
         insuranceBean.create("Fidelidade", "fidelidade@mail.pt", "123", 974521587, "Sintra", 10000);
@@ -60,7 +60,7 @@ public class ConfigBean {
 
         //region occurrences
         //For individual client
-        List<Policy> policiesClientInd = policyBean.getPoliciesByUserId(clientInd.getUser_id());
+        List<Policy> policiesClientInd = policyBean.getPoliciesByUserNif(clientInd.getNif());
         if (policiesClientInd.size() > 0) {
             occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(0).getId(), "Acidente causado após outra viatura embater na traseira");
             occurrenceBean.create(clientInd.getUser_id(), policiesClientInd.get(1).getId(), "Infiltração prolongada de água provoucou danos estruturais");
@@ -69,7 +69,7 @@ public class ConfigBean {
         }
 
         //For enterprise client
-        List<Policy> policiesClientEmp = policyBean.getPoliciesByUserId(clientEmp.getUser_id());
+        List<Policy> policiesClientEmp = policyBean.getPoliciesByUserNipc(clientEmp.getNipc());
         if (policiesClientEmp.size() > 0) {
             Occurrence occurrence = occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(0).getId(), "Acidente de trabalho, viatura danificada");
             occurrenceBean.create(clientEmp.getUser_id(), policiesClientEmp.get(2).getId(), "Incêndio no armazem");

@@ -5,8 +5,9 @@ import javax.persistence.Id;
 public class PolicyDTO {
     @Id
     private long id;
-    private long user_id;
     private String description;
+    private long nif;
+    private long nipc;
     private String type;
     private String createdAt;
     private long insurance_id;
@@ -15,13 +16,14 @@ public class PolicyDTO {
 
     }
 
-    public PolicyDTO(long id, long user_id, long insurance_id, String description, String type, String createdAt) {
+    public PolicyDTO(long id, long nif, long nipc, long insurance_id, String description, String type, String createdAt) {
         this.id = id;
-        this.user_id = user_id;
-        this.insurance_id = insurance_id;
         this.description = description;
+        this.nif = nif;
+        this.nipc = nipc;
         this.type = type;
         this.createdAt = createdAt;
+        this.insurance_id = insurance_id;
     }
 
     public long getId() {
@@ -32,12 +34,20 @@ public class PolicyDTO {
         this.id = id;
     }
 
-    public long getUser_id() {
-        return user_id;
+    public long getNif() {
+        return nif;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setNif(long nif) {
+        this.nif = nif;
+    }
+
+    public long getNipc() {
+        return nipc;
+    }
+
+    public void setNipc(long nipc) {
+        this.nipc = nipc;
     }
 
     public long getInsurance_id() {
