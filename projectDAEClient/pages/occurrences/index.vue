@@ -18,18 +18,12 @@
                 <b-btn class="btn-danger" @click="denyOccurrence(row)">Deny</b-btn>
               </a>
             </div>
-            <a v-if="row.item.status=='Approved'">
-              <a v-show="user.user_type === 'Repair'">
-                <b-btn class="btn-success" @click="endRepair(row)">End repair</b-btn>
-              </a>
-            </a>
           </template>
         </b-table>
       </div>
     </b-container>
   </div>
 </template>
-
 <script>
 export default {
   data() {
