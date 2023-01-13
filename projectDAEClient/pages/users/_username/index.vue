@@ -45,13 +45,15 @@
           disabled
         ></b-form-input>
       </b-form-group>
-      <h4>Policies:</h4>
-      <b-table v-if="policies.length"
-               striped over :items="policies" :fields="policiesFields">
-        <template v-slot:cell(options)="row">
-        </template>
-      </b-table>
-      <p v-else>No policies for this user.</p>
+      <b-form-group v-show="user.user_type==='Client'">
+        <h4>Policies:</h4>
+        <b-table v-if="policies.length"
+                 striped over :items="policies" :fields="policiesFields">
+          <template v-slot:cell(options)="row">
+          </template>
+        </b-table>
+        <p v-else>No policies for this user.</p>
+      </b-form-group>
       <nuxt-link to="/users">Back</nuxt-link>
     </b-container>
   </div>

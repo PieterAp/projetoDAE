@@ -13,27 +13,13 @@
                 <b-btn class="btn-success" @click="approveOccurrence(row)">Approve</b-btn>
                 <b-btn class="btn-danger" @click="disapproveOccurrence(row)">Disapprove</b-btn>
               </a>
-              <a v-show="user.user_type === 'Insurance'">
-                <b-btn class="btn-success" @click="acceptOccurrence(row)">Accept</b-btn>
-                <b-btn class="btn-danger" @click="denyOccurrence(row)">Deny</b-btn>
-              </a>
             </div>
-            <a v-if="row.item.status=='Approved'">
-              <a v-show="user.user_type === 'Repair' || user.user_type === 'Expert'">
-                <b-btn class="btn-information" @click="onPickFile">Upload repair files</b-btn>
-                <input type="file" style="display: none" ref="fileInput" @change="onFilePicked(row)"/>
-              </a>
-              <a v-show="user.user_type === 'Repair'">
-                <b-btn class="btn-success" @click="endRepair(row)">End repair</b-btn>
-              </a>
-            </a>
           </template>
         </b-table>
       </div>
     </b-container>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -52,15 +38,6 @@ export default {
       })
   },
   computed: {
-
-    formData() {
-      let formData = new FormData()
-      formData.append('id', this.$auth.user.user_id)
-      if (this.file) {
-        formData.append('file', this.file)
-      }
-      return formData
-    }
   },
   methods: {
     approveOccurrence(row) {
@@ -95,28 +72,6 @@ export default {
         status: "Repaired"
       }).then(() => {
         location.reload();
-      })
-    },
-
-    onPickFile() {
-
-      this.$refs.fileInput.click()
-    },
-
-    onFilePicked(row) {
-      this.file = event.target.files[0]
-      let promisse = this.$axios.$post(`/api/occurrences/${row.item.occurrence_id}/documents`, this.formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      promisse.then(() => {
-        this.$toast.success('File uploaded!').goAway(3000)
-      })
-      promisse.catch(() => {
-        this.$toast
-          .error('Sorry, could no upload file!')
-          .goAway(3000)
       })
     },
   }

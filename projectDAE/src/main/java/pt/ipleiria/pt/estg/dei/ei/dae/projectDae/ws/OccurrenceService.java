@@ -9,7 +9,6 @@ import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.DocumentBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.OccurrenceBean;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Document;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Authenticated;
 
 import javax.ejb.EJB;
@@ -43,16 +42,25 @@ public class OccurrenceService {
 
     @POST
     @Path("/")
-    public Response createOccurrence(OccurrenceDTO occurrenceDTO) {
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createOccurrence(MultipartFormDataInput input) throws IOException {
+        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+
+        InputPart clientID = uploadForm.get("client_id").get(0);
+        InputPart policyID = uploadForm.get("policy_id").get(0);
+        InputPart descriptionID = uploadForm.get("description").get(0);
+
         Occurrence createdOccurrence = occurrenceBean.create(
-                occurrenceDTO.getClient_id(),
-                occurrenceDTO.getPolicy_id(),
-                occurrenceDTO.getDescription()
+                Long.parseLong(clientID.getBodyAsString()),
+                Long.parseLong(policyID.getBodyAsString()),
+                descriptionID.getBodyAsString()
         );
 
-        if (createdOccurrence == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+        if (uploadForm.get("file") != null) {
+            upload(createdOccurrence.getOccurrence_id(), input);
         }
+
         return Response.status(Response.Status.CREATED).entity(toDTO(createdOccurrence)).build();
     }
 
@@ -72,11 +80,14 @@ public class OccurrenceService {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public Response upload(@PathParam("occurrenceid") long occurrenceid, MultipartFormDataInput input) throws IOException {
+        System.out.println(input);
+        System.out.println(occurrenceid);
+
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         List<InputPart> inputParts = uploadForm.get("file");
 
-        InputPart userID = uploadForm.get("id").get(0);
+        InputPart userID = uploadForm.get("client_id").get(0);
 
         var documents = new LinkedList<Document>();
 
