@@ -66,8 +66,10 @@ public class UserService {
                 return oToDTOs(occurrenceBean.getAllInsuranceOccurrences(user_id));
             if (Objects.equals(foundUser.getUserType(), "Repair"))
                 return oToDTOs(occurrenceBean.getAllRepairOccurrences(user_id));
-            if (Objects.equals(foundUser.getUserType(), "Expert"))
-                return oToDTOs(occurrenceBean.getAllExpertOccurrences(user_id));
+            if (Objects.equals(foundUser.getUserType(), "Expert")) {
+                Expert expert = expertBean.findUserId(user_id);
+                return oToDTOs(occurrenceBean.getAllExpertOccurrences(user_id, expert.getInsurance().getUser_id()));
+            }
         }
 
         return null;

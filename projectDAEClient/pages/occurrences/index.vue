@@ -43,7 +43,8 @@ export default {
     approveOccurrence(row) {
       row.item.status = "Approved"
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
-        status: "Approved"
+        status: "Approved",
+        expert_id: this.user.user_id
       })
     },
     disapproveOccurrence(row) {
