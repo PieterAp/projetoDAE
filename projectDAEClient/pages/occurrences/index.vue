@@ -24,7 +24,7 @@
 export default {
   data() {
     return {
-      fields: ['client_id', 'insurance_id', 'policy_id', 'description', 'status', 'actions'],
+      fields: ['insurance_id', 'policy_id', 'description', 'status', 'actions'],
       occurrences: [],
       user: false,
       file: null,
