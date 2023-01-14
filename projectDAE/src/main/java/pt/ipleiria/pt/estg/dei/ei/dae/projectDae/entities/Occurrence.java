@@ -32,7 +32,7 @@ import java.util.List;
                 name = "getAllExpertOccurrences",
                 query = "SELECT o " +
                         "FROM Occurrence o " +
-                        "WHERE o.expert_id = :expert_id OR o.expert_id = 0"
+                        "WHERE o.expert_id = :expert_id OR o.expert_id = 0 AND o.insurance_id = :insurance_id"
         ), @NamedQuery(
                 name = "getOccurrencesByPolicy",
                 query = "SELECT o " +

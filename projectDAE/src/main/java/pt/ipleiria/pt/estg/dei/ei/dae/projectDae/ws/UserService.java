@@ -31,10 +31,13 @@ public class UserService {
     private InsuranceBean insuranceBean;
 
     @EJB
-    private OccurrenceBean occurrenceBean;
+    private PolicyBean policyBean;
 
     @EJB
     private RepairBean repairBean;
+
+    @EJB
+    private OccurrenceBean occurrenceBean;
 
     @GET
     @Path("/")
@@ -70,8 +73,10 @@ public class UserService {
                 return oToDTOs(occurrenceBean.getAllInsuranceOccurrences(user_id));
             if (Objects.equals(foundUser.getUserType(), "Repair"))
                 return oToDTOs(occurrenceBean.getAllRepairOccurrences(user_id));
-            if (Objects.equals(foundUser.getUserType(), "Expert"))
-                return oToDTOs(occurrenceBean.getAllExpertOccurrences(user_id));
+            if (Objects.equals(foundUser.getUserType(), "Expert")) {
+                Expert expert = expertBean.findUserId(user_id);
+                return oToDTOs(occurrenceBean.getAllExpertOccurrences(user_id, expert.getInsurance().getUser_id()));
+            }
         }
 
         return null;
@@ -142,16 +147,62 @@ public class UserService {
     }
 
     private OccurrenceDTO toDTO(Occurrence occurrence) {
+
+        Insurance insurance = insuranceBean.findUserId(occurrence.getInsurance_id());
+        Policy policy = policyBean.find(occurrence.getPolicy_id());
+        User user = userBean.find(occurrence.getClient_id());
+
+        if (occurrence.getExpert_id() != 0 && occurrence.getRepair_id() == 0) {
+            Expert expert = expertBean.findUserId(occurrence.getExpert_id());
+            return new OccurrenceDTO(
+                    occurrence.getOccurrence_id(),
+                    user.getName(),
+                    occurrence.getClient_id(),
+                    occurrence.getInsurance_id(),
+                    occurrence.getPolicy_id(),
+                    occurrence.getRepair_id(),
+                    occurrence.getExpert_id(),
+                    occurrence.getDescription(),
+                    occurrence.getStatus(),
+                    insurance.getName(),
+                    policy.getDescription(),
+                    expert.getName()
+            );
+        } else if (occurrence.getExpert_id() != 0 && occurrence.getRepair_id() != 0) {
+            Expert expert = expertBean.findUserId(occurrence.getExpert_id());
+            Repair repair = repairBean.find(occurrence.getRepair_id());
+
+            return new OccurrenceDTO(
+                    occurrence.getOccurrence_id(),
+                    user.getName(),
+                    occurrence.getClient_id(),
+                    occurrence.getInsurance_id(),
+                    occurrence.getPolicy_id(),
+                    occurrence.getRepair_id(),
+                    occurrence.getExpert_id(),
+                    occurrence.getDescription(),
+                    occurrence.getStatus(),
+                    insurance.getName(),
+                    policy.getDescription(),
+                    expert.getName(),
+                    repair.getName()
+            );
+        }
+
         return new OccurrenceDTO(
                 occurrence.getOccurrence_id(),
+                user.getName(),
                 occurrence.getClient_id(),
                 occurrence.getInsurance_id(),
                 occurrence.getPolicy_id(),
                 occurrence.getRepair_id(),
                 occurrence.getExpert_id(),
                 occurrence.getDescription(),
-                occurrence.getStatus()
+                occurrence.getStatus(),
+                insurance.getName(),
+                policy.getDescription()
         );
+
     }
 
     private RepairDTO toDTO(Repair repair) {

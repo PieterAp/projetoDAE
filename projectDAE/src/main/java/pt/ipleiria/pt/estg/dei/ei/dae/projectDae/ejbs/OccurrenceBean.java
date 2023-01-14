@@ -47,9 +47,10 @@ public class OccurrenceBean {
                 .getResultList();
     }
 
-    public List<Occurrence> getAllExpertOccurrences(long expert_id) {
+    public List<Occurrence> getAllExpertOccurrences(long expert_id,long insurance_id) {
         return (List<Occurrence>) entityManager.createNamedQuery("getAllExpertOccurrences")
                 .setParameter("expert_id", expert_id)
+                .setParameter("insurance_id", insurance_id)
                 .getResultList();
     }
 
@@ -110,7 +111,8 @@ public class OccurrenceBean {
         if (status != null)
             occurrence.setStatus(status);
         occurrence.setRepair_id(repair_id);
-        occurrence.setExpert_id(expert_id);
+        if (expert_id != 0)
+            occurrence.setExpert_id(expert_id);
 
         return true;
     }

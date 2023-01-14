@@ -2,6 +2,9 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 import org.hibernate.Hibernate;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.*;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Repair;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Hasher;
 
 import javax.ejb.EJB;
@@ -10,6 +13,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+
 
 @Stateless
 public class RepairBean {
@@ -37,4 +41,9 @@ public class RepairBean {
 
         return  resuilts;
     }
+    
+    public Repair find(long user_id) {
+        return entityManager.find(Repair.class, user_id);
+    }
+
 }

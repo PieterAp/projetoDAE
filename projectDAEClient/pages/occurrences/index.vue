@@ -24,7 +24,7 @@
 export default {
   data() {
     return {
-      fields: ['insurance_id', 'policy_id', 'description', 'status', 'actions'],
+      fields: ['clientName', 'insuranceName', 'policyName', 'expertName', 'repairName', 'description', 'status', 'actions'],
       occurrences: [],
       user: false,
       file: null,
@@ -37,35 +37,21 @@ export default {
         this.occurrences = occurrences
       })
   },
-  computed: {
-  },
+  computed: {},
   methods: {
     approveOccurrence(row) {
-      row.item.status = "Approved"
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
-        status: "Approved"
-      })
+        status: "Approved",
+        expert_id: this.user.user_id
+      }).then(() => this.$axios.$get('/api/users/' + this.user.user_id + "/occurrences"))
+        .then((occurrences) => (this.occurrences = occurrences))
     },
     disapproveOccurrence(row) {
-      row.item.status = "Disapproved"
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
-        status: "Disapproved"
-      })
-    },
-    //TODO accept/deny
-    acceptOccurrence(row) {
-      this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
-        status: "Approved"
-      }).then(() => {
-        location.reload();
-      })
-    },
-    denyOccurrence(row) {
-      this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {
-        status: "Disapproved"
-      }).then(() => {
-        location.reload();
-      })
+        status: "Disapproved",
+        expert_id: this.user.user_id
+      }).then(() => this.$axios.$get('/api/users/' + this.user.user_id + "/occurrences"))
+        .then((occurrences) => (this.occurrences = occurrences))
     },
     endRepair(row) {
       this.$axios.$put(`/api/occurrences/${row.item.occurrence_id}`, {

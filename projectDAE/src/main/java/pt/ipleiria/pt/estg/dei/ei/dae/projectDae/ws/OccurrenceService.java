@@ -5,10 +5,8 @@ import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.DocumentDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.OccurrenceDTO;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.DocumentBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.OccurrenceBean;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Document;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.*;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.*;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Authenticated;
 
 import javax.ejb.EJB;
@@ -33,6 +31,21 @@ public class OccurrenceService {
 
     @EJB
     private DocumentBean documentBean;
+
+    @EJB
+    private InsuranceBean insuranceBean;
+
+    @EJB
+    private PolicyBean policyBean;
+
+    @EJB
+    private RepairBean repairBean;
+
+    @EJB
+    private ExpertBean expertBean;
+
+    @EJB
+    private UserBean userBean;
 
     @GET
     @Path("/")
@@ -170,16 +183,24 @@ public class OccurrenceService {
     }
 
     private OccurrenceDTO toDTO(Occurrence occurrence) {
+        Insurance insurance = insuranceBean.findUserId(occurrence.getInsurance_id());
+        Policy policy = policyBean.find(occurrence.getPolicy_id());
+        User user = userBean.find(occurrence.getClient_id());
+
         return new OccurrenceDTO(
                 occurrence.getOccurrence_id(),
+                user.getName(),
                 occurrence.getClient_id(),
                 occurrence.getInsurance_id(),
                 occurrence.getPolicy_id(),
                 occurrence.getRepair_id(),
                 occurrence.getExpert_id(),
                 occurrence.getDescription(),
-                occurrence.getStatus()
+                occurrence.getStatus(),
+                insurance.getName(),
+                policy.getDescription()
         );
+
     }
 
 }

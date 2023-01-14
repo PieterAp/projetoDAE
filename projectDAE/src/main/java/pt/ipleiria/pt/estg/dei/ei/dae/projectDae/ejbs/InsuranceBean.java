@@ -30,6 +30,7 @@ public class InsuranceBean {
                 .setParameter("userID",userID)
                 .getSingleResult();
     }
+
     public List<Insurance> getAllInsurances() {
         return (List<Insurance>) entityManager.createNamedQuery("getAllUsersInsurance").getResultList();
     }

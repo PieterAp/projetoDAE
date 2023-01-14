@@ -15,11 +15,21 @@ public class OccurrenceDTO {
     private String description;
     private String status;
 
+    private String clientName;
+    private String insuranceName;
+
+    private String policyName;
+
+    private String expertName;
+
+    private String repairName;
+
     public OccurrenceDTO() {
 
     }
 
-    public OccurrenceDTO(long occurrence_id, long client_id, long insurance_id, long policy_id,long repair_id, long expert_id, String description, String status) {
+    public OccurrenceDTO(long occurrence_id,String clientName ,long client_id, long insurance_id, long policy_id, long repair_id, long expert_id, String description, String status, String insuranceName, String policyName, String expertName, String repairName) {
+        this.clientName = clientName;
         this.occurrence_id = occurrence_id;
         this.client_id = client_id;
         this.insurance_id = insurance_id;
@@ -28,6 +38,80 @@ public class OccurrenceDTO {
         this.expert_id = expert_id;
         this.description = description;
         this.status = status;
+        this.insuranceName = insuranceName;
+        this.policyName = policyName;
+        this.expertName = expertName;
+        this.repairName = repairName;
+    }
+
+    public OccurrenceDTO(long occurrence_id, String clientName,long client_id, long insurance_id, long policy_id, long repair_id, long expert_id, String description, String status, String insuranceName, String policyName) {
+        this.clientName = clientName;
+        this.occurrence_id = occurrence_id;
+        this.client_id = client_id;
+        this.insurance_id = insurance_id;
+        this.policy_id = policy_id;
+        this.repair_id = repair_id;
+        this.expert_id = expert_id;
+        this.description = description;
+        this.status = status;
+        this.insuranceName = insuranceName;
+        this.policyName = policyName;
+    }
+
+    public OccurrenceDTO(long occurrence_id, String clientName,long client_id, long insurance_id, long policy_id, long repair_id, long expert_id, String description, String status, String insuranceName, String policyName, String expertName) {
+        this.clientName = clientName;
+        this.occurrence_id = occurrence_id;
+        this.client_id = client_id;
+        this.insurance_id = insurance_id;
+        this.policy_id = policy_id;
+        this.repair_id = repair_id;
+        this.expert_id = expert_id;
+        this.description = description;
+        this.status = status;
+        this.insuranceName = insuranceName;
+        this.policyName = policyName;
+        this.expertName = expertName;
+    }
+
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getInsuranceName() {
+        return insuranceName;
+    }
+
+    public void setInsuranceName(String insuranceName) {
+        this.insuranceName = insuranceName;
+    }
+
+    public String getPolicyName() {
+        return policyName;
+    }
+
+    public void setPolicyName(String policyName) {
+        this.policyName = policyName;
+    }
+
+    public String getExpertName() {
+        return expertName;
+    }
+
+    public void setExpertName(String expertName) {
+        this.expertName = expertName;
+    }
+
+    public String getRepairName() {
+        return repairName;
+    }
+
+    public void setRepairName(String repairName) {
+        this.repairName = repairName;
     }
 
     public long getRepair_id() {
