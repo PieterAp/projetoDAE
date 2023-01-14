@@ -2,6 +2,7 @@ package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Expert;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Hasher;
 
 import javax.ejb.Stateless;
@@ -24,6 +25,9 @@ public class ExpertBean {
         return expert;
     }
 
+    public Expert find(long user_id) {
+        return entityManager.find(Expert.class, user_id);
+    }
 
     public Expert findUserId(long userID) {
         return (Expert) entityManager.createNamedQuery("findExpertByUserId")

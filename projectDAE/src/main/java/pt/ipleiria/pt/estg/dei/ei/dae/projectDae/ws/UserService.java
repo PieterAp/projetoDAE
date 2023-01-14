@@ -39,6 +39,9 @@ public class UserService {
     @EJB
     private OccurrenceBean occurrenceBean;
 
+    public UserService() {
+    }
+
     @GET
     @Path("/")
     public List<UserDTO> getAllUsers() {
@@ -71,8 +74,10 @@ public class UserService {
                 return oToDTOs(occurrenceBean.getAllUserOccurrences(user_id));
             if (Objects.equals(foundUser.getUserType(), "Insurance"))
                 return oToDTOs(occurrenceBean.getAllInsuranceOccurrences(user_id));
-            if (Objects.equals(foundUser.getUserType(), "Repair"))
-                return oToDTOs(occurrenceBean.getAllRepairOccurrences(user_id));
+            if (Objects.equals(foundUser.getUserType(), "Repair")) {
+                Repair repair = repairBean.find(user_id);
+                return oToDTOs(occurrenceBean.getAllRepairOccurrences(user_id, repair.getInsurance_user_repair_id()));
+            }
             if (Objects.equals(foundUser.getUserType(), "Expert")) {
                 Expert expert = expertBean.findUserId(user_id);
                 return oToDTOs(occurrenceBean.getAllExpertOccurrences(user_id, expert.getInsurance().getUser_id()));
@@ -153,7 +158,7 @@ public class UserService {
         User user = userBean.find(occurrence.getClient_id());
 
         if (occurrence.getExpert_id() != 0 && occurrence.getRepair_id() == 0) {
-            Expert expert = expertBean.findUserId(occurrence.getExpert_id());
+            User expert = userBean.find(occurrence.getExpert_id());
             return new OccurrenceDTO(
                     occurrence.getOccurrence_id(),
                     user.getName(),
@@ -169,8 +174,8 @@ public class UserService {
                     expert.getName()
             );
         } else if (occurrence.getExpert_id() != 0 && occurrence.getRepair_id() != 0) {
-            Expert expert = expertBean.findUserId(occurrence.getExpert_id());
-            Repair repair = repairBean.find(occurrence.getRepair_id());
+            User expert = userBean.find(occurrence.getExpert_id());
+            User repair = userBean.find(occurrence.getRepair_id());
 
             return new OccurrenceDTO(
                     occurrence.getOccurrence_id(),

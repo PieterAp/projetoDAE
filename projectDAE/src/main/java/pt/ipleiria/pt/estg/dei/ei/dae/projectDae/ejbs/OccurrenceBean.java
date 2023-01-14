@@ -41,9 +41,10 @@ public class OccurrenceBean {
                 .getResultList();
     }
 
-    public List<Occurrence> getAllRepairOccurrences(long repair_id) {
+    public List<Occurrence> getAllRepairOccurrences(long repair_id,long insurance_id) {
         return (List<Occurrence>) entityManager.createNamedQuery("getAllRepairOccurrences")
                 .setParameter("repair_id", repair_id)
+                .setParameter("insurance_id", insurance_id)
                 .getResultList();
     }
 
