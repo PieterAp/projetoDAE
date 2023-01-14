@@ -130,8 +130,8 @@ export default {
   created() {
     this.$axios.$get(`/api/occurrences/${this.occurrenceID}`)
       .then((occurrence) => (this.occurrence = occurrence || {}))
-      .then(() => this.$axios.$get(`api/occurrences/${this.occurrenceID}/documents`))
-      .then((documents) => (this.documents = documents || {}))
+      //.then(() => this.$axios.$get(`api/occurrences/${this.occurrenceID}/documents`))
+      //.then((documents) => (this.documents = documents || {}))
       .then(() => this.$axios.$get(`api/users/${this.$route.params.userid}/repairs`))
       .then((repairs) => (this.repairs = repairs || {}))
   }, methods: {

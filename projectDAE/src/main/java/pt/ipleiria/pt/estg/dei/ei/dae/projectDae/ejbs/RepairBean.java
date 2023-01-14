@@ -1,9 +1,7 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs;
 
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Insurance;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Occurrence;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.Repair;
-import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.User;
+import org.hibernate.Hibernate;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.*;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.security.Hasher;
 
 import javax.ejb.EJB;
@@ -32,6 +30,10 @@ public class RepairBean {
 
     public List<Repair> getRepairsAssignInsurance(long occurrance_id) {
         Occurrence foundOccurrence = occurrenceBean.find(occurrance_id);
+
+        System.out.println("I WAS HERE");
+        Hibernate.initialize(Document.class);
+        System.out.println("NOW i'M NOT");
 
         return (List<Repair>) entityManager.createNamedQuery("getRepairsAssignInsurance")
                 .setParameter("insurance_id",foundOccurrence.getInsurance_id())

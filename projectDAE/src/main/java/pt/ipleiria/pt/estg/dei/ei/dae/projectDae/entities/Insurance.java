@@ -28,7 +28,7 @@ public class Insurance extends User implements Serializable {
     @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
     private List<Expert> experts;
 
-    @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
+    @OneToMany
     private List<Repair> repairs;
 
     public Insurance() {

@@ -10,28 +10,29 @@ import java.io.Serializable;
         name = "getRepairsAssignInsurance",
         query = "SELECT r " +
                 "FROM Repair r " +
-                "WHERE r.insurance.user_id = :insurance_id"
+                "WHERE r.insurance_user_repair_id.user_id = :insurance_id"
     )
 )
 public class Repair extends User implements Serializable  {
 
     @ManyToOne
-    private Insurance insurance;
+    @JoinColumn(name="insurance_user_repair_id")
+    private Insurance insurance_user_repair_id;
 
     public Repair() {
 
     }
 
-    public Repair(String name, String email, String password, long phone, Insurance insurance) {
+    public Repair(String name, String email, String password, long phone, Insurance insurance_user_repair_id) {
         super(name, email, password, phone);
-        this.insurance = insurance;
+        this.insurance_user_repair_id = insurance_user_repair_id;
     }
 
     public Insurance getInsurance() {
-        return insurance;
+        return insurance_user_repair_id;
     }
 
     public void setInsurance(Insurance insurance) {
-        this.insurance = insurance;
+        this.insurance_user_repair_id = insurance;
     }
 }
