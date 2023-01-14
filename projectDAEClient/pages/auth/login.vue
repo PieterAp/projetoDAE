@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       email: null,
-      password: null
+      password: null,
+      user:{}
     }
   },
   methods: {
@@ -43,8 +44,14 @@ export default {
 
       promise.then(() => {
         this.$toast.success('You are logged in!').goAway(3000)
-        // check if the user $auth.user object is set
-        this.$router.push('/')
+
+        this.user = this.$auth.user
+        if (this.user.user_type == "Client") {
+          this.$router.push('/')
+        }else{
+          this.$router.push('/occurrences')
+        }
+        
       })
       promise.catch(() => {
         this.$toast.error("Sorry, you can't login. Ensure your credentials are correct").goAway(3000)

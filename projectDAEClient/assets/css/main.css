@@ -1,3 +1,18 @@
 .navbar{
     margin-bottom: 40px;
 }
+
+.container{
+    margin-bottom: 50px;
+}
+
+.blink_me {
+    border: 1px #ff0000 solid;
+    animation: blinker 2s linear infinite;
+}
+  
+@keyframes blinker {
+    30% {
+        border-color:#fff ;
+    }
+}

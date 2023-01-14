@@ -23,21 +23,70 @@
       <b-form-group label="Repair:" v-if="occurrence.expertName">
         <b-form-input :value="occurrence.expertName" disabled></b-form-input>
       </b-form-group>
-      <hr class="hr"/>
+
+      <b-card class="blink_me " v-show="occurrence.status === 'Approved' && this.$auth.user.user_type === 'Client' && this.occurrence.repair_id == 0">
+        <h4 style="margin-top: 0%;">Repair entity to handle this occurance</h4>
+
+        <div class="acordion" role="tablist">
+          <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+            Please select one of the presented repair entities down bellow to handle your occurrance,
+            if none of the presented repair entities is of your interest, click <a block v-b-toggle.accordion-2
+              style="cursor: pointer;">here</a>
+            <br><br>
+
+            <b-form-group label="Repair entity:">
+              <b-form-select v-model="repair_id" required>
+                <option :value="null" disabled>Pick one of the repair entities</option>
+                <template v-for="repair in repairs">
+                  <option :key="repair.user_id" :value="repair.user_id" required>
+                    {{repair.name}}
+                  </option>
+                </template>
+              </b-form-select>
+              <br><br>
+              <div class="text-right">
+                <b-button variant="primary" type="submit" @click.prevent="assignDrop">Assign</b-button>
+              </div>
+            </b-form-group>
+          </b-collapse>
+
+          <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
+            Fill in this form with the contact information of the repair entity of your choice
+            <br><br>
+            <b-form @submit.prevent="create" class="text-left">
+              <b-form-group label="Name:">
+                <b-form-input v-model="name" placeholder="Enter name" required></b-form-input>
+              </b-form-group>
+              <b-form-group label="Email:">
+                <b-form-input type="email" v-model="email" placeholder="Enter email" required></b-form-input>
+              </b-form-group>
+              <b-form-group label="Phone number:">
+                <b-form-input v-model="name" placeholder="Enter phone number" required></b-form-input>
+              </b-form-group>
+              <p v-show="errorMsg" class="text-danger">{{ errorMsg }}</p>
+              <div class="text-center">
+                <b-button variant="warning" v-b-toggle.accordion-1>Show previous selection</b-button>
+                <b-button variant="primary" type="submit" @click.prevent="create">Assign</b-button>
+              </div>
+            </b-form>
+          </b-collapse>
+        </div>
+
+      </b-card>
+
       <b-form-group
         v-if="occurrence.status == 'Approved' || (occurrence.status == 'Submitted' && this.$auth.user.user_type === 'Client')">
-        <h4>Upload File:</h4>
+        <h4 style="margin-top: 3%;">Upload File:</h4>
         <form @submit.prevent="upload(row)" ref="clear">
           <!-- Styled -->
-          <b-form-file v-model="file"/>
+          <b-form-file v-model="file" />
           <b-button :disabled="!hasFile" type="submit">Upload</b-button>
         </form>
       </b-form-group>
       <h4>Documents:</h4>
       <b-table v-if="documents.length" striped over :items="documents" :fields="documentsFields">
         <template v-slot:cell(options)="row">
-          <a class="btn btn-link" @click="download(row)">Download
-          </a>
+          <a class="btn btn-link" @click="download(row)">Download</a>
         </template>
       </b-table>
       <p v-else>No Documents for this occurence.</p>
@@ -52,8 +101,10 @@
 export default {
   data() {
     return {
+      repair_id: null,
       occurrence: {},
       documents: [],
+      repairs: [],
       documentsFields: ['owner', 'filename', 'options'],
       file: null,
     }
@@ -81,7 +132,27 @@ export default {
       .then((occurrence) => (this.occurrence = occurrence || {}))
       .then(() => this.$axios.$get(`api/occurrences/${this.occurrenceID}/documents`))
       .then((documents) => (this.documents = documents || {}))
-  }, methods: {
+      .then(() => this.$axios.$get(`api/users/${this.$route.params.userid}/repairs`))
+      .then((repairs) => (this.repairs = repairs || {}))
+  },
+  methods: {
+    assignDrop() {
+      this.$axios.$put(`/api/occurrences/${this.occurrenceID}`, {
+        repair_id: this.repair_id
+      }).then(() => {
+        this.$toast.success('Success!').goAway(3000)
+        this.$router.push('/occurrences')
+      })
+    },
+    assignCreate() {
+      this.$axios.$post(`/api/occurrences/${occurrenceID}`, {
+        status: "Closed"
+      }).then(() => {
+        this.$toast.success('Occurrence as been marked as closed!').goAway(3000)
+        this.$router.push('/occurrences')
+      })
+    },
+
     upload() {
       if (!this.hasFile) {
         return
@@ -104,7 +175,7 @@ export default {
 
     },
     download(row) {
-      this.$axios.$get(`/api/documents/${row.item.id}/download`, {responseType: 'arraybuffer'})
+      this.$axios.$get(`/api/documents/${row.item.id}/download`, { responseType: 'arraybuffer' })
         .then((file) => {
           const url = window.URL.createObjectURL(new Blob([file]))
           const link = document.createElement('a')
@@ -129,5 +200,9 @@ export default {
 <style>
 h4 {
   margin-top: 5%;
+}
+
+.card-body {
+  padding: 10px;
 }
 </style>

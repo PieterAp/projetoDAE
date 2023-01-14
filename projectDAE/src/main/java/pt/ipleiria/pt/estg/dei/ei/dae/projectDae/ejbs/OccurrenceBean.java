@@ -91,6 +91,7 @@ public class OccurrenceBean {
                 .add("repairName", repairName)
                 .add("expertName", expertName)
                 .add("policyDescription", policyDescription)
+                .add("repair_id",occurrence.getRepair_id())
                 .build();
 
         return occurrenceDetails;
@@ -104,17 +105,15 @@ public class OccurrenceBean {
 
     }
 
-    //todo: WARNING, ONLY UPDATES THE STATUS!!
     public boolean update(long occurrenceid, String status, long repair_id, long expert_id) {
         Occurrence occurrence = find(occurrenceid);
-        occurrence.setStatus(status);
-        occurrence.setRepair_id(repair_id);
-        occurrence.setExpert_id(expert_id);
 
-        Occurrence editedOccurrence = entityManager.find(Occurrence.class, occurrenceid);
-        if (!editedOccurrence.getStatus().equals(status)) {
-            return false;
-        }
+        if (status != null)
+            occurrence.setStatus(status);
+        occurrence.setRepair_id(repair_id);
+        if (expert_id != 0)
+            occurrence.setExpert_id(expert_id);
+
         return true;
     }
 
@@ -122,8 +121,8 @@ public class OccurrenceBean {
         return entityManager.find(Occurrence.class, occurrenceid);
     }
 
-    public Occurrence findOrFail(String username) {
-        var occurrence = entityManager.getReference(Occurrence.class, username);
+    public Occurrence findOrFail(long id) {
+        var occurrence = entityManager.getReference(Occurrence.class, id);
         Hibernate.initialize(occurrence);
 
         return occurrence;

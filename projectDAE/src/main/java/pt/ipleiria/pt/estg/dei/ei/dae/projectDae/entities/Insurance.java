@@ -62,4 +62,5 @@ public class Insurance extends User implements Serializable {
     public void setShare_capital(long share_capital) {
         this.share_capital = share_capital;
     }
+
 }
