@@ -1,6 +1,7 @@
 package pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ws;
 
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.OccurrenceDTO;
+import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.RepairDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.dtos.UserDTO;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.ejbs.*;
 import pt.ipleiria.pt.estg.dei.ei.dae.projectDae.entities.*;
@@ -31,6 +32,9 @@ public class UserService {
 
     @EJB
     private OccurrenceBean occurrenceBean;
+
+    @EJB
+    private RepairBean repairBean;
 
     @GET
     @Path("/")
@@ -71,6 +75,12 @@ public class UserService {
         }
 
         return null;
+    }
+
+    @GET
+    @Path("/{occurrance_id}/repairs")
+    public List<RepairDTO> getRepairsFromInsurance(@PathParam("occurrance_id") long occurrance_id) {
+        return toDTOsRepair(repairBean.getRepairsAssignInsurance(occurrance_id));
     }
 
     private List<OccurrenceDTO> oToDTOs(List<Occurrence> occurrences) {
@@ -144,7 +154,23 @@ public class UserService {
         );
     }
 
+    //long user_id, String name, String email, String password, long phone, long insurance_id
+    private RepairDTO toDTO(Repair repair) {
+        return new RepairDTO(
+                repair.getUser_id(),
+                repair.getName(),
+                repair.getEmail(),
+                repair.getPassword(),
+                repair.getPhone(),
+                repair.getInsurance()
+        );
+    }
+
     private List<UserDTO> toDTOs(List<User> users) {
         return users.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    private List<RepairDTO> toDTOsRepair(List<Repair> repairs) {
+        return repairs.stream().map(this::toDTO).collect(Collectors.toList());
     }
 }

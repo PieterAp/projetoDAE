@@ -35,18 +35,17 @@
             <br><br>
 
             <b-form-group label="Repair entity:">
-              <b-form-select v-model="policy_id" :state="isPolicyChoiceValid" required>
-                <option :value="null" disabled>Pick one of your policies</option>
-                <template v-for="policy in policies">
-                  <option :key="policy.id" :value="policy.id" required>
-                    [{{ policy.type }}] {{ policy.description }}
+              <b-form-select v-model="repair_id" required>
+                <option :value="null" disabled>Pick one of the repair entities</option>
+                <template v-for="repair in repairs">
+                  <option :key="repair.user_id" :value="repair.user_id" required>
+                    {{repair.name}}
                   </option>
                 </template>
               </b-form-select>
               <br><br>
               <div class="text-right">
-                <b-button variant="primary" type="submit" @click.prevent="create"
-                  :disabled="!isFormValid">Assign</b-button>
+                <b-button variant="primary" type="submit" @click.prevent="assignDrop">Assign</b-button>
               </div>
             </b-form-group>
           </b-collapse>
@@ -102,8 +101,10 @@
 export default {
   data() {
     return {
+      repair_id: null,
       occurrence: {},
       documents: [],
+      repairs: [],
       documentsFields: ['owner', 'filename', 'options'],
       file: null,
     }
@@ -131,7 +132,27 @@ export default {
       .then((occurrence) => (this.occurrence = occurrence || {}))
       .then(() => this.$axios.$get(`api/occurrences/${this.occurrenceID}/documents`))
       .then((documents) => (this.documents = documents || {}))
+      .then(() => this.$axios.$get(`api/users/${this.$route.params.userid}/repairs`))
+      .then((repairs) => (this.repairs = repairs || {}))
   }, methods: {
+    assignDrop() {
+      /*
+      this.$axios.$put(`/api/occurrences/${occurrenceID}`, {
+        status: "Closed"
+      }).then(() => {
+        this.$toast.success('Occurrence as been marked as closed!').goAway(3000)
+        this.$router.push('/occurrences')
+      })*/
+    },
+    assignCreate() {
+      this.$axios.$post(`/api/occurrences/${occurrenceID}`, {
+        status: "Closed"
+      }).then(() => {
+        this.$toast.success('Occurrence as been marked as closed!').goAway(3000)
+        this.$router.push('/occurrences')
+      })
+    },
+
     upload() {
       if (!this.hasFile) {
         return

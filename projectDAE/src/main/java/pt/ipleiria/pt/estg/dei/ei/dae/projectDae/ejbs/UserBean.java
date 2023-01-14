@@ -20,9 +20,16 @@ public class UserBean {
     private Hasher hasher;
 
     public User find(String email) {
-        return (User) entityManager.createNamedQuery("findUserEmail")
+
+        User foundUser =(User) entityManager.createNamedQuery("findUserEmail")
                 .setParameter("email",email)
                 .getSingleResult();
+
+        System.out.println("BATATAS com fiambre");
+        System.out.println("THIS IS THE MAIKL " + foundUser.getName());
+        System.out.printf(foundUser.getName());
+
+        return foundUser;
     }
 
     public User findOrFail(String email) {

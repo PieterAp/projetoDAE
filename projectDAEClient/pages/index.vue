@@ -63,6 +63,13 @@ export default {
       userId: null
     }
   },
+  created() {
+    /*
+    if (this.$auth.user.user_type != 'Client') {
+      this.$router.push('/occurrences')
+    }
+    */
+  },
   mounted() {
     this.userId = this.$auth.user.user_id
     this.$axios.$get(`/api/users/${this.userId}`)
