@@ -61,12 +61,12 @@
                 <b-form-input type="email" v-model="email" placeholder="Enter email" required></b-form-input>
               </b-form-group>
               <b-form-group label="Phone number:">
-                <b-form-input v-model="name" placeholder="Enter phone number" required></b-form-input>
+                <b-form-input v-model="phone" placeholder="Enter phone number" required></b-form-input>
               </b-form-group>
               <p v-show="errorMsg" class="text-danger">{{ errorMsg }}</p>
               <div class="text-center">
                 <b-button variant="warning" v-b-toggle.accordion-1>Show previous selection</b-button>
-                <b-button variant="primary" type="submit" @click.prevent="create">Assign</b-button>
+                <b-button variant="primary" type="submit" @click.prevent="assignCreate">Assign</b-button>
               </div>
             </b-form>
           </b-collapse>
@@ -101,6 +101,11 @@
 export default {
   data() {
     return {
+      name: null,
+      email: null,
+      phone: null,
+
+
       repair_id: null,
       occurrence: {},
       documents: [],
@@ -145,8 +150,11 @@ export default {
       })
     },
     assignCreate() {
-      this.$axios.$post(`/api/occurrences/${occurrenceID}`, {
-        status: "Closed"
+      this.$axios.$post(`/api/repairs`, {
+        name: this.name,
+        email: this.email,
+        phone: this.phone,
+        insurance_user_repair_id: this.occurrence.occurrence_id
       }).then(() => {
         this.$toast.success('Occurrence as been marked as closed!').goAway(3000)
         this.$router.push('/occurrences')
