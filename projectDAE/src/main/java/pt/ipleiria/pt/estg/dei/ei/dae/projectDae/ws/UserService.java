@@ -30,6 +30,12 @@ public class UserService {
     private InsuranceBean insuranceBean;
 
     @EJB
+    private PolicyBean policyBean;
+
+    @EJB
+    private RepairBean repairBean;
+
+    @EJB
     private OccurrenceBean occurrenceBean;
 
     @GET
@@ -134,17 +140,64 @@ public class UserService {
     }
 
     private OccurrenceDTO toDTO(Occurrence occurrence) {
+
+        Insurance insurance = insuranceBean.findUserId(occurrence.getInsurance_id());
+        Policy policy = policyBean.find(occurrence.getPolicy_id());
+        User user = userBean.find(occurrence.getClient_id());
+
+        if (occurrence.getExpert_id() != 0 && occurrence.getRepair_id() == 0) {
+            Expert expert = expertBean.findUserId(occurrence.getExpert_id());
+            return new OccurrenceDTO(
+                    occurrence.getOccurrence_id(),
+                    user.getName(),
+                    occurrence.getClient_id(),
+                    occurrence.getInsurance_id(),
+                    occurrence.getPolicy_id(),
+                    occurrence.getRepair_id(),
+                    occurrence.getExpert_id(),
+                    occurrence.getDescription(),
+                    occurrence.getStatus(),
+                    insurance.getName(),
+                    policy.getDescription(),
+                    expert.getName()
+            );
+        } else if (occurrence.getExpert_id() != 0 && occurrence.getRepair_id() != 0) {
+            Expert expert = expertBean.findUserId(occurrence.getExpert_id());
+            Repair repair = repairBean.find(occurrence.getRepair_id());
+
+            return new OccurrenceDTO(
+                    occurrence.getOccurrence_id(),
+                    user.getName(),
+                    occurrence.getClient_id(),
+                    occurrence.getInsurance_id(),
+                    occurrence.getPolicy_id(),
+                    occurrence.getRepair_id(),
+                    occurrence.getExpert_id(),
+                    occurrence.getDescription(),
+                    occurrence.getStatus(),
+                    insurance.getName(),
+                    policy.getDescription(),
+                    expert.getName(),
+                    repair.getName()
+            );
+        }
+
         return new OccurrenceDTO(
                 occurrence.getOccurrence_id(),
+                user.getName(),
                 occurrence.getClient_id(),
                 occurrence.getInsurance_id(),
                 occurrence.getPolicy_id(),
                 occurrence.getRepair_id(),
                 occurrence.getExpert_id(),
                 occurrence.getDescription(),
-                occurrence.getStatus()
+                occurrence.getStatus(),
+                insurance.getName(),
+                policy.getDescription()
         );
+
     }
+
 
     private List<UserDTO> toDTOs(List<User> users) {
         return users.stream().map(this::toDTO).collect(Collectors.toList());
