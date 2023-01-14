@@ -22,21 +22,19 @@ public class RepairBean {
 
     @Inject
     private Hasher hasher;
-    public Repair create(String name, String email, String password, long phone, Insurance insurance) {
-        Repair repair = new Repair(name, email, hasher.hash(password), phone, insurance);
+    public Repair create(String name, String email, String password, long phone, long insurance_user_repair_id) {
+        Repair repair = new Repair(name, email, hasher.hash(password), phone, insurance_user_repair_id);
         entityManager.persist(repair);
         return repair;
     }
 
     public List<Repair> getRepairsAssignInsurance(long occurrance_id) {
-        Occurrence foundOccurrence = occurrenceBean.find(occurrance_id);
+        Occurrence foundOccurrence = entityManager.find(Occurrence.class, occurrance_id);
 
-        System.out.println("I WAS HERE");
-        Hibernate.initialize(Document.class);
-        System.out.println("NOW i'M NOT");
+        List<Repair> resuilts =  (List<Repair>) entityManager.createNamedQuery("getRepairsAssignInsurance")
+                                            .setParameter("insurance_id",foundOccurrence.getInsurance_id())
+                                            .getResultList();
 
-        return (List<Repair>) entityManager.createNamedQuery("getRepairsAssignInsurance")
-                .setParameter("insurance_id",foundOccurrence.getInsurance_id())
-                .getResultList();
+        return  resuilts;
     }
 }

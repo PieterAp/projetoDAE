@@ -55,8 +55,8 @@ public class ConfigBean {
         expertBean.create("André", "andre@mail.pt", "123", 985214526, insuranceTeleSeg);
         expertBean.create("Sousa", "sousa@mail.pt", "123", 952528745, insuranceGen);
 
-        repairBean.create("Leiria Auto", "repairLeiria@mail.pt", "123", 958536956,insuranceGen);
-        repairBean.create("MyAuto Mecânica Multimarcas Lisboa", "repairLisboa@mail.pt", "123", 985214257,insuranceTeleSeg);
+        repairBean.create("Leiria Auto", "repairLeiria@mail.pt", "123", 958536956,insuranceGen.getUser_id());
+        repairBean.create("MyAuto Mecânica Multimarcas Lisboa", "repairLisboa@mail.pt", "123", 985214257,insuranceTeleSeg.getUser_id());
         //endregion
 
         //region occurrences

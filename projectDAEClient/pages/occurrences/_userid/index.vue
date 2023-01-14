@@ -24,7 +24,7 @@
         <b-form-input :value="occurrence.expertName" disabled></b-form-input>
       </b-form-group>
 
-      <b-card class="blink_me " v-show="occurrence.status === 'Approved' && this.$auth.user.user_type === 'Client'">
+      <b-card class="blink_me " v-show="occurrence.status === 'Approved' && this.$auth.user.user_type === 'Client' && this.occurrence.repair_id == 0">
         <h4 style="margin-top: 0%;">Repair entity to handle this occurance</h4>
 
         <div class="acordion" role="tablist">
@@ -130,19 +130,19 @@ export default {
   created() {
     this.$axios.$get(`/api/occurrences/${this.occurrenceID}`)
       .then((occurrence) => (this.occurrence = occurrence || {}))
-      //.then(() => this.$axios.$get(`api/occurrences/${this.occurrenceID}/documents`))
-      //.then((documents) => (this.documents = documents || {}))
+      .then(() => this.$axios.$get(`api/occurrences/${this.occurrenceID}/documents`))
+      .then((documents) => (this.documents = documents || {}))
       .then(() => this.$axios.$get(`api/users/${this.$route.params.userid}/repairs`))
       .then((repairs) => (this.repairs = repairs || {}))
-  }, methods: {
+  },
+  methods: {
     assignDrop() {
-      /*
-      this.$axios.$put(`/api/occurrences/${occurrenceID}`, {
-        status: "Closed"
+      this.$axios.$put(`/api/occurrences/${this.occurrenceID}`, {
+        repair_id: this.repair_id
       }).then(() => {
-        this.$toast.success('Occurrence as been marked as closed!').goAway(3000)
+        this.$toast.success('Success!').goAway(3000)
         this.$router.push('/occurrences')
-      })*/
+      })
     },
     assignCreate() {
       this.$axios.$post(`/api/occurrences/${occurrenceID}`, {

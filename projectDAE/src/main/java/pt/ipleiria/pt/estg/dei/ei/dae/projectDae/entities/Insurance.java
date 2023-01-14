@@ -28,12 +28,8 @@ public class Insurance extends User implements Serializable {
     @OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)
     private List<Expert> experts;
 
-    @OneToMany
-    private List<Repair> repairs;
-
     public Insurance() {
         this.experts = new ArrayList<>();
-        this.repairs = new ArrayList<>();
     }
 
     public Insurance(String name, String email, String password, long phone, String address, long share_capital) {
@@ -41,7 +37,6 @@ public class Insurance extends User implements Serializable {
         this.address = address;
         this.share_capital = share_capital;
         this.experts = new ArrayList<>();
-        this.repairs = new ArrayList<>();
     }
 
     public List<Expert> getExperts() {
@@ -68,11 +63,4 @@ public class Insurance extends User implements Serializable {
         this.share_capital = share_capital;
     }
 
-    public List<Repair> getRepairs() {
-        return repairs;
-    }
-
-    public void setRepairs(List<Repair> repairs) {
-        this.repairs = repairs;
-    }
 }

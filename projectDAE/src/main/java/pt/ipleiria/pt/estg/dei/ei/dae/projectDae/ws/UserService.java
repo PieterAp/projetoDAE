@@ -154,7 +154,6 @@ public class UserService {
         );
     }
 
-    //long user_id, String name, String email, String password, long phone, long insurance_id
     private RepairDTO toDTO(Repair repair) {
         return new RepairDTO(
                 repair.getUser_id(),
@@ -162,7 +161,7 @@ public class UserService {
                 repair.getEmail(),
                 repair.getPassword(),
                 repair.getPhone(),
-                repair.getInsurance()
+                repair.getInsurance_user_repair_id()
         );
     }
 

@@ -64,11 +64,9 @@ export default {
     }
   },
   created() {
-    /*
     if (this.$auth.user.user_type != 'Client') {
       this.$router.push('/occurrences')
     }
-    */
   },
   mounted() {
     this.userId = this.$auth.user.user_id

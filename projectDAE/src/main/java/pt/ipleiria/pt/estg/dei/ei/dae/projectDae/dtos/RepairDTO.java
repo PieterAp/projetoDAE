@@ -16,19 +16,19 @@ public class RepairDTO {
     private String password;
     private long phone;
 
-    private Insurance insurance;
+    private long insurance_user_repair_id;
 
     public RepairDTO() {
 
     }
 
-    public RepairDTO(long user_id, String name, String email, String password, long phone, Insurance insurance) {
+    public RepairDTO(long user_id, String name, String email, String password, long phone, long insurance_user_repair_id) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
-        this.insurance = insurance;
+        this.insurance_user_repair_id = insurance_user_repair_id;
     }
 
     public long getUser_id() {
@@ -71,11 +71,11 @@ public class RepairDTO {
         this.phone = phone;
     }
 
-    public Insurance getInsurance() {
-        return insurance;
+    public long getInsurance_user_repair_id() {
+        return insurance_user_repair_id;
     }
 
-    public void setInsurance(Insurance insurance) {
-        this.insurance = insurance;
+    public void setInsurance_user_repair_id(long insurance_user_repair_id) {
+        this.insurance_user_repair_id = insurance_user_repair_id;
     }
 }
